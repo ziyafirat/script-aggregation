@@ -7,7 +7,7 @@ Created on May 8, 2018
 import os
 from argospyt.argosp import *
 import numpy as np
-import argospyt.plotDensities
+from argospyt.plotDensities import *
 
 print('***************** hello Density **********************')
 
@@ -45,7 +45,7 @@ def processDensity(proportions,rangeStart,rangeEnd,swarmSize,radiusSpot,resultDi
         outfile = np.savetxt(resultff, ab, delimiter="\t", fmt="%s")
         print('recorded.',resultff)
         fld=resultDir + '/' + resultFolder + '/densities'
-        argospyt.plotDensities.plotSingleDensity(str(swarmSize), str(inform), radiusSpot, fld , resultff)
+        plotSingleDensity(str(swarmSize), str(inform), radiusSpot, fld , resultff)
         
         
 print('***************** Density Finish **********************')
