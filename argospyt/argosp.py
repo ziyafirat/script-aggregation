@@ -1,17 +1,13 @@
-'''
-Created on Apr 28, 2018
 
-@author: osboxes
-'''
 
 #from argospyt.argosDensity import *
 import os
 import xml.etree.cElementTree as ET
 # import subprocess
 import random
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import kde
+#import numpy as np
+#import matplotlib.pyplot as plt
+#from scipy.stats import kde
 #from asyncore import write
 #from sys import path
 
