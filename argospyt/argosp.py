@@ -5,11 +5,11 @@ import os
 import xml.etree.cElementTree as ET
 # import subprocess
 import random
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import kde
-from asyncore import write
-from sys import path
+# import numpy as np
+# import matplotlib.pyplot as plt
+# from scipy.stats import kde
+# from asyncore import write
+#from sys import path
 
 
 if __name__ == '__main__':
