@@ -23,7 +23,7 @@ os.system("echo 'argos start--------'")
 user = 'ubuntu'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
 path = argosdir + '/experiments'
-resultDir ='/home/' + user + '/Ziya/DATAV2'  # argosdir + '/build'
+resultDir = argosdir + '/build'
 
 proportions = [0, 0.1]          #, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 #proportions = [0.2,0.3];
