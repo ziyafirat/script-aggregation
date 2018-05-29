@@ -18,11 +18,11 @@ print('***************** hello **********************')
 
 os.system("echo 'hello world'")
 os.system("echo 'argos start--------'")
-
+spotnname = 'white_'
 user = 'osboxes'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
 path = argosdir + '/experiments'
-resultDir = '/home/' + user + '/Ziya/DATAV2'  # argosdir + '/build'
+resultDir = '/home/' + user + '/Ziya/DATAV2_50'  # argosdir + '/build'
 
 proportions = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 # proportions = [0.2,0.3];
@@ -33,14 +33,27 @@ proportions = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 
 clocklen = '2500'  # 2500 * 10 =25000
 calcClockLen = int(clocklen) / 100  # for plot calc
+# 
+# radiusSpot = '0.8'
+# blackSpotSize = '1.2'
+# whiteSpotSize = '1.2'
+# swarmSize = 20
+# 
+# rangeStart = 0
+# rangeEnd = 100
 
-radiusSpot = '0.8'
-blackSpotSize = '1.2'
-whiteSpotSize = '1.2'
-swarmSize = 20
 
+changesize = 2.5
+
+radiusSpot = round((0.8 * changesize),1)
+blackSpotSize = round((1.2 * changesize),1)
+whiteSpotSize = round((1.2 * changesize),1)
+swarmSize = round((20 * changesize),1)
+areaSize=round((6 * changesize),1)
+positionSize=round((2 * changesize),1)
 rangeStart = 0
 rangeEnd = 100
+
 
 # rangeStart=50
 # rangeEnd=100
@@ -110,7 +123,7 @@ for prop in proportions:
         inform = swarmSize * prop
         print ("prop:" + str(prop))
         print ("inform:", str(inform))
-        resultFolder = 'FirstRuns_A' + radiusSpot + '_N' + str(swarmSize) + '_P' + str(inform) 
+        resultFolder = 'FirstRuns_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
         resultFile = resultFolder + '/output_run_' + str(x) + '.txt'
         print ("Starting density..  ", str(x)) 
         filename = resultDir + '/' + resultFile
@@ -128,11 +141,15 @@ for prop in proportions:
 #             # yy1=yy1.sum()
 #             t1 = np.hstack((t1, str(prop)))
 #             t2 = np.hstack((t2, yy))
+
+#         White
         zz=z[230:250]
         zz3=zz.sum()/20
 #         
+
+#       black 
 #         yy = y[230:250]
-#         yy3=yy.sum()/20
+#         yy3 = yy.sum() / 20
         t1 = np.hstack((t1, str(prop)))
         t2 = np.hstack((t2, zz3))
     
@@ -161,7 +178,7 @@ for prop in proportions:
     resultff1 = resultDir + '/' + probfolder 
     if not os.path.exists(resultff1):
         os.makedirs(resultff1)
-    resultff = resultff1 + '/densityprob.txt'
+    resultff = resultff1 + '/densityprob' + spotnname + '.txt'
     outfile = np.savetxt(resultff, ab, delimiter="\t", fmt="%s")
     print('recorded.', resultff)
     fld = resultDir + '/' + probfolder + '/densitiesprob'
@@ -170,7 +187,7 @@ for prop in proportions:
     
 N = str(swarmSize)
 Q = str(inform)
-S = radiusSpot
+S = str(radiusSpot)
 setting = fld 
 fn = resultff
  
@@ -206,6 +223,9 @@ if not os.path.exists(setting + '/density'):
 
 if not os.path.exists(setting + '/contour'):
     os.makedirs(setting + '/contour')        
+    
+if not os.path.exists(setting + '/boxplot'):
+    os.makedirs(setting + '/boxplot')  
 
 plt.figure(figsize=(14, 7))
 plt.clf()
@@ -226,9 +246,54 @@ ax.tick_params(axis='both', which='major', labelsize=24)
 
 plt.draw()
 
-plt.savefig(setting + '/scatter/scatter-N' + N + '_Q' + Q + '-S' + S + '.png')
+plt.savefig(setting + '/scatter/' + spotnname + 'scatter-N' + N + '_Q' + Q + '-S' + S + '.png')
 
 plt.close()
+
+# ------ boxplot-------------  
+
+plt.figure(figsize=(14, 7))
+plt.clf()
+# plt.hexbin(x, y, gridsize=nbins, cmap=plt.get_cmap('gray'))
+ 
+# # Create data
+np.random.seed(10)
+collectn_1 = y[0:100]  # np.random.normal(100, 10, 200)
+collectn_2 = y[100:200]  # np.random.normal(80, 30, 200)
+collectn_3 = y[200:300]  # np.random.normal(90, 20, 200)
+collectn_4 = y[300:400]  # np.random.normal(70, 25, 200)
+collectn_5 = y[400:500]
+collectn_6 = y[500:600]
+collectn_7 = y[600:700]
+collectn_8 = y[700:800]
+collectn_9 = y[800:900]
+collectn_10 = y[900:1000]
+collectn_11 = y[1000:1100]
+
+# # combine these different collections into a list    
+data_to_plot = [collectn_1, collectn_2, collectn_3, collectn_4, collectn_5, collectn_6, collectn_7, collectn_8, collectn_9, collectn_10, collectn_11]
+ 
+plt.boxplot(data_to_plot)
+ 
+# plt.plot(y, x, 'ko')
+
+plt.xlabel('Prop', fontsize=30)
+
+plt.ylabel('Spot', fontsize=30)
+
+ax = plt.gca()
+
+ax.tick_params(axis='both', which='major', labelsize=24)
+ax.set_xticklabels(['0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0'])
+# plt.show()
+
+plt.draw()
+
+plt.savefig(setting + '/boxplot/' + spotnname + 'boxplot-N' + N + 'Q' + Q + '-S' + S + '.png')
+
+plt.close()
+  
+# -----------------------------------    
 
 plt.figure(figsize=(14, 7))
 
@@ -250,7 +315,7 @@ plt.ylabel('Spot')
 
 plt.draw()
 
-plt.savefig(setting + '/hexbin/hexbin-N' + N + '_Q' + Q + '-S' + S + '.png')
+plt.savefig(setting + '/hexbin/' + spotnname + 'hexbin-N' + N + '_Q' + Q + '-S' + S + '.png')
 
 plt.close()
 
@@ -274,7 +339,7 @@ plt.ylabel('Spot')
 
 plt.draw()
 
-plt.savefig(setting + '/hist2D/hist2D-N' + N + '_Q' + Q + '-S' + S + '.png')
+plt.savefig(setting + '/hist2D/' + spotnname + 'hist2D-N' + N + '_Q' + Q + '-S' + S + '.png')
 
 plt.close()
 
@@ -306,7 +371,7 @@ plt.ylabel('Spot')
 
 plt.draw()
 
-plt.savefig(setting + '/gaussianKDE/gaussianKDE-N' + N + '_Q' + Q + '-S' + S + '.png')
+plt.savefig(setting + '/gaussianKDE/' + spotnname + 'gaussianKDE-N' + N + '_Q' + Q + '-S' + S + '.png')
 
 plt.close()
 
@@ -330,7 +395,7 @@ plt.ylabel('Spot')
 
 plt.draw()
 
-plt.savefig(setting + '/density/density-N' + N + '_Q' + Q + '-S' + S + '.png')
+plt.savefig(setting + '/density/' + spotnname + 'density-N' + N + '_Q' + Q + '-S' + S + '.png')
 
 plt.close()
 
@@ -356,7 +421,7 @@ plt.ylabel('Spot')
 
 plt.draw()
 
-plt.savefig(setting + '/contour/contour-N' + N + '_Q' + Q + '-S' + S + '.png')
+plt.savefig(setting + '/contour/' + spotnname + 'contour-N' + N + '_Q' + Q + '-S' + S + '.png')
 
 plt.close()
 

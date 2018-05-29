@@ -19,10 +19,10 @@ print('***************** hello **********************')
 os.system("echo 'hello world'")
 os.system("echo 'argos start--------'")
 
-user = 'ubuntu'
-argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
-# user = 'osboxes'
-# argosdir = '/home/' + user + '/Documents/argos3-aggregation'
+# user = 'ubuntu'
+# argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
+user = 'osboxes'
+argosdir = '/home/' + user + '/Documents/argos3-aggregation'
 
 path = argosdir + '/experiments'
 resultDir = argosdir + '/build'
@@ -47,6 +47,12 @@ areaSize=round((6 * changesize),1)
 positionSize=round((2 * changesize),1)
 rangeStart = 0
 rangeEnd = 100
+
+goStraight=round((80 * changesize),0)
+walkInsideSpot=round((20 * changesize),0)
+waitInsideSpot=round((40 * changesize),0)
+leaveInsideSpot=round((100 * changesize),0)
+#walkInsideSpot=round((20 * changesize),0)
 
 
 # rangeStart=50
@@ -96,7 +102,14 @@ for prop in proportions:
         rootcontroller = et.find('controllers')
         rootfootbot = rootcontroller.find('footbot_aggregation_controller')
         rootparam = rootfootbot.find('params')
-        rootparam.set('numInformedRobot', str(inform))       
+        rootparam.set('numInformedRobot', str(inform))  
+        rootparam.set('goStraight', str(goStraight))  
+        rootparam.set('walkInsideSpot', str(walkInsideSpot))  
+        rootparam.set('waitInsideSpot', str(waitInsideSpot))  
+        rootparam.set('leaveInsideSpot', str(leaveInsideSpot))  
+        rootparam.set('numInformedRobot', str(inform))  
+        rootparam.set('numInformedRobot', str(inform))  
+             
         xmlFolder = 'aggregation_informedRatio_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
         xmlargos = 'run_' + str(x) + '.argos'
         xmlPath = path + '/' + xmlFolder
