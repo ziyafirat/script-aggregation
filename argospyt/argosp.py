@@ -107,8 +107,7 @@ for prop in proportions:
         rootparam.set('walkInsideSpot', str(walkInsideSpot))  
         rootparam.set('waitInsideSpot', str(waitInsideSpot))  
         rootparam.set('leaveInsideSpot', str(leaveInsideSpot))  
-        rootparam.set('numInformedRobot', str(inform))  
-        rootparam.set('numInformedRobot', str(inform))  
+       
              
         xmlFolder = 'aggregation_informedRatio_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
         xmlargos = 'run_' + str(x) + '.argos'
