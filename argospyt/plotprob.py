@@ -4,9 +4,11 @@
 import os
 import xml.etree.cElementTree as ET
 # import subprocess
+
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+#from matplotlib.colors import lnorm
 from scipy.stats import kde
 from asyncore import write
 from sys import path
@@ -22,7 +24,7 @@ spotnname = 'white_'
 user = 'osboxes'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
 path = argosdir + '/experiments'
-resultDir = '/home/' + user + '/Ziya/DATAV2_50'  # argosdir + '/build'
+resultDir = '/home/' + user + '/Ziya/DATAV3_50'  # argosdir + '/build'
 
 proportions = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 # proportions = [0.2,0.3];
@@ -325,8 +327,8 @@ plt.clf()
 
 # plt.set_title('Hexbin')
 
-plt.hist2d(x, y, bins=nbins, cmap=plt.get_cmap('gray'))
-
+#plt.hist2d(x, y, bins=nbins, cmap=plt.get_cmap('gray'))
+plt.hist2d(x, y, bins=nbins, cmap=plt.cm.colors)
 # plt.colorbar()
 
 plt.xlabel('Prop')

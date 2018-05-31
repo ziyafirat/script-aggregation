@@ -19,10 +19,10 @@ print('***************** hello **********************')
 os.system("echo 'hello world'")
 os.system("echo 'argos start--------'")
 
-# user = 'ubuntu'
-# argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
-user = 'osboxes'
-argosdir = '/home/' + user + '/Documents/argos3-aggregation'
+user = 'ubuntu'
+argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
+# user = 'osboxes'
+# argosdir = '/home/' + user + '/Documents/argos3-aggregation'
 
 path = argosdir + '/experiments'
 resultDir = argosdir + '/build'
@@ -37,22 +37,21 @@ proportions = [0, 0.1]  # , 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 
 clocklen = '2500'  # 2500 * 10 =25000
 
-changesize = 2.5
+changesize = 5
 
 radiusSpot = round((0.8 * changesize),1)
-blackSpotSize = round((1.2 * changesize),1)
-whiteSpotSize = round((1.2 * changesize),1)
+blackSpotSize = round((1 * changesize),1)
+whiteSpotSize = round((1 * changesize),1)
 swarmSize = round((20 * changesize),1)
 areaSize=round((6 * changesize),1)
 positionSize=round((2 * changesize),1)
 rangeStart = 0
 rangeEnd = 100
 
-goStraight=round((80 * changesize),0)
-walkInsideSpot=round((20 * changesize),0)
-waitInsideSpot=round((40 * changesize),0)
-leaveInsideSpot=round((100 * changesize),0)
-#walkInsideSpot=round((20 * changesize),0)
+# goStraight=round((80 * changesize),0)
+# walkInsideSpot=round((20 * changesize),0)
+# waitInsideSpot=round((40 * changesize),0)
+# leaveInsideSpot=round((100 * changesize),0)
 
 
 # rangeStart=50
@@ -103,10 +102,10 @@ for prop in proportions:
         rootfootbot = rootcontroller.find('footbot_aggregation_controller')
         rootparam = rootfootbot.find('params')
         rootparam.set('numInformedRobot', str(inform))  
-        rootparam.set('goStraight', str(goStraight))  
-        rootparam.set('walkInsideSpot', str(walkInsideSpot))  
-        rootparam.set('waitInsideSpot', str(waitInsideSpot))  
-        rootparam.set('leaveInsideSpot', str(leaveInsideSpot))  
+#         rootparam.set('goStraight', str(goStraight))  
+#         rootparam.set('walkInsideSpot', str(walkInsideSpot))  
+#         rootparam.set('waitInsideSpot', str(waitInsideSpot))  
+#         rootparam.set('leaveInsideSpot', str(leaveInsideSpot))  
        
              
         xmlFolder = 'aggregation_informedRatio_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
