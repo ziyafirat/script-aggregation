@@ -279,7 +279,7 @@ plt.plot(x2, y2, 'ko')
 
 #--------------------------Median ---------
 
-ax = sns.tsplot(time="timepoint", value="BOLD signal", unit="subject", condition="ROI", data=qq)
+# ax = sns.tsplot(time="timepoint", value="BOLD signal", unit="subject", condition="ROI", data=qq)
 
 
 
