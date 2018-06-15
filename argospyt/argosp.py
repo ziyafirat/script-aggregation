@@ -23,7 +23,7 @@ user = 'ubuntu'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'  
 # user = 'osboxes'
 # argosdir = '/home/' + user + '/Documents/argos3-aggregation'
-
+  
 path = argosdir + '/experiments'
 resultDir = argosdir + '/build'
 # resultDir = '/home/Ziya/DATA/' 
