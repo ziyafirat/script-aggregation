@@ -26,25 +26,25 @@ argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
 
 path = argosdir + '/experiments'
 resultDir = argosdir + '/build'
-#resultDir = '/home/Ziya/DATA/' 
+# resultDir = '/home/Ziya/DATA/' 
 
-proportions = [0, 0.1]  # , 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
+proportions = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 # proportions = [0.2,0.3];
 # proportions = [0.4,0.5];
 # proportions = [0.6,0.7];
 # proportions = [0.8,0.9];
 # proportions = [1];
 
-clocklen = '2500'  # 2500 * 10 =25000
+clocklen = '3000'  # 2500 * 10 =25000
 
 changesize = 5
 
-radiusSpot = round((0.8 * changesize),1)
-blackSpotSize = round((1 * changesize),1)
-whiteSpotSize = round((1 * changesize),1)
-swarmSize = round((20 * changesize),1)
-areaSize=round((6 * changesize),1)
-positionSize=round((2 * changesize),1)
+radiusSpot = round((0.9 * changesize), 1)
+blackSpotSize = round((1.3 * changesize), 1)
+whiteSpotSize = round((1.3 * changesize), 1)
+swarmSize = round((20 * changesize), 1)
+areaSize = round((6 * changesize), 1)
+positionSize = round((2 * changesize), 1)
 rangeStart = 0
 rangeEnd = 100
 
@@ -52,7 +52,6 @@ rangeEnd = 100
 # walkInsideSpot=round((20 * changesize),0)
 # waitInsideSpot=round((40 * changesize),0)
 # leaveInsideSpot=round((100 * changesize),0)
-
 
 # rangeStart=50
 # rangeEnd=100
@@ -89,13 +88,13 @@ for prop in proportions:
         rootloop.set('blackSpotSize', str(blackSpotSize))
         rootloop.set('whiteSpotSize', str(whiteSpotSize))    
         rootarea = et.find('arena')
-        rootarea.set('size',str(areaSize)+','+str(areaSize)+',1')
+        rootarea.set('size', str(areaSize) + ',' + str(areaSize) + ',1')
         rootdist = rootarea.find('distribute')
         rootpos = rootdist.find('position')
-        minpos='-'+str(positionSize)+',-'+str(positionSize)+',-0'
-        rootpos.set('min',minpos)
-        maxpos=str(positionSize)+','+str(positionSize)+',0'
-        rootpos.set('max',maxpos)
+        minpos = '-' + str(positionSize) + ',-' + str(positionSize) + ',-0'
+        rootpos.set('min', minpos)
+        maxpos = str(positionSize) + ',' + str(positionSize) + ',0'
+        rootpos.set('max', maxpos)
         rootqty = rootdist.find('entity')
         rootqty.set('quantity', str(swarmSize)) 
         rootcontroller = et.find('controllers')
@@ -106,7 +105,6 @@ for prop in proportions:
 #         rootparam.set('walkInsideSpot', str(walkInsideSpot))  
 #         rootparam.set('waitInsideSpot', str(waitInsideSpot))  
 #         rootparam.set('leaveInsideSpot', str(leaveInsideSpot))  
-       
              
         xmlFolder = 'aggregation_informedRatio_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
         xmlargos = 'run_' + str(x) + '.argos'
@@ -119,9 +117,6 @@ for prop in proportions:
         os.chdir(argosdir + "/build")
         os.system("dir")
         os.system("argos3 -c ../experiments/" + xmlFolder + '/' + xmlargos)
-
-
-
  
 # for prop in proportions:    
 #     t1 = []        
@@ -392,7 +387,6 @@ for prop in proportions:
 #   
 #     plt.close()
 #   
-  
  
 print('******************* Finish ************************')
 

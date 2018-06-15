@@ -8,7 +8,9 @@ import xml.etree.cElementTree as ET
 import random
 import numpy as np
 import matplotlib.pyplot as plt
-#from matplotlib.colors import lnorm
+import seaborn as sns
+
+# from matplotlib.colors import lnorm
 from scipy.stats import kde
 from asyncore import write
 from sys import path
@@ -20,11 +22,12 @@ print('***************** hello **********************')
 
 os.system("echo 'hello world'")
 os.system("echo 'argos start--------'")
-spotnname = 'white_'
+spotnname = 'black_100'
+spotnname2 = 'white_100'
 user = 'osboxes'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
 path = argosdir + '/experiments'
-resultDir = '/home/' + user + '/Ziya/DATAV3_50'  # argosdir + '/build'
+resultDir = '/home/' + user + '/Ziya/DATAV4'  # argosdir + '/build'
 
 proportions = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 # proportions = [0.2,0.3];
@@ -44,18 +47,16 @@ calcClockLen = int(clocklen) / 100  # for plot calc
 # rangeStart = 0
 # rangeEnd = 100
 
+changesize = 1
 
-changesize = 2.5
-
-radiusSpot = round((0.8 * changesize),1)
-blackSpotSize = round((1.2 * changesize),1)
-whiteSpotSize = round((1.2 * changesize),1)
-swarmSize = round((20 * changesize),1)
-areaSize=round((6 * changesize),1)
-positionSize=round((2 * changesize),1)
+radiusSpot = round((0.8 * changesize), 1)
+blackSpotSize = round((1.2 * changesize), 1)
+whiteSpotSize = round((1.2 * changesize), 1)
+swarmSize = round((20 * changesize), 1)
+areaSize = round((6 * changesize), 1)
+positionSize = round((2 * changesize), 1)
 rangeStart = 0
 rangeEnd = 100
-
 
 # rangeStart=50
 # rangeEnd=100
@@ -116,6 +117,14 @@ t2 = []
 tt1 = []
 tt2 = []
 
+t3 = []        
+t4 = [] 
+tt3 = []
+tt4 = []
+
+qq = []
+pp = []
+
 for prop in proportions:    
      
     print ("prop :" , prop)
@@ -144,16 +153,21 @@ for prop in proportions:
 #             t1 = np.hstack((t1, str(prop)))
 #             t2 = np.hstack((t2, yy))
 
-#         White
-        zz=z[230:250]
-        zz3=zz.sum()/20
 #         
 
 #       black 
-#         yy = y[230:250]
-#         yy3 = yy.sum() / 20
+        yy = y[230:250]
+        yy3 = yy.sum() / 20
+        
         t1 = np.hstack((t1, str(prop)))
-        t2 = np.hstack((t2, zz3))
+        t2 = np.hstack((t2, yy3))
+        
+#       White
+        zz = z[230:250]
+        zz3 = zz.sum() / 20
+         
+        t3 = np.hstack((t3, str(prop)))
+        t4 = np.hstack((t4, zz3))
     
 #     steps = 20
 #     yy2=0
@@ -176,6 +190,7 @@ for prop in proportions:
     ab = np.zeros(t1.size, dtype=[('var1', float), ('var2', float)])
     ab['var1'] = t1
     ab['var2'] = t2        
+    qq.append(t2)
     probfolder = 'prob'    
     resultff1 = resultDir + '/' + probfolder 
     if not os.path.exists(resultff1):
@@ -186,20 +201,44 @@ for prop in proportions:
     fld = resultDir + '/' + probfolder + '/densitiesprob'
     if not os.path.exists(fld):
         os.makedirs(fld)
-    
+        
+    ab2 = np.zeros(t3.size, dtype=[('var3', float), ('var4', float)])
+    ab2['var3'] = t3
+    ab2['var4'] = t4   
+    pp.append(t4)     
+    probfolder = 'prob'    
+    resultff1 = resultDir + '/' + probfolder 
+    if not os.path.exists(resultff1):
+        os.makedirs(resultff1)
+    resultff22 = resultff1 + '/densityprob' + spotnname2 + '.txt'
+    outfile = np.savetxt(resultff22, ab2, delimiter="\t", fmt="%s")
+    print('recorded.', resultff22)
+    fld = resultDir + '/' + probfolder + '/densitiesprob'
+    if not os.path.exists(fld):
+        os.makedirs(fld)
+        
 N = str(swarmSize)
 Q = str(inform)
 S = str(radiusSpot)
 setting = fld 
 fn = resultff
+
+fn22 = resultff22
  
 filename = fn
+
+filename2 = fn22
  
 print("file:", fn)
+print("file:", fn22)
  
 data = np.loadtxt(filename);
 
 x, y = data.T
+
+data22 = np.loadtxt(filename2);
+
+x2, y2 = data22.T
 
 nbins = 100
  
@@ -231,34 +270,96 @@ if not os.path.exists(setting + '/boxplot'):
 
 plt.figure(figsize=(14, 7))
 plt.clf()
-
+ 
 # plt.set_title('Hexbin')
-
+ 
 plt.plot(x, y, 'ko')
+plt.plot(x2, y2, 'ko') 
 
-plt.xlabel('Prop', fontsize=30)
 
-plt.ylabel('Spot', fontsize=30)
+#--------------------------Median ---------
 
-ax = plt.gca()
+ax = sns.tsplot(time="timepoint", value="BOLD signal", unit="subject", condition="ROI", data=qq)
 
-ax.tick_params(axis='both', which='major', labelsize=24)
 
-# plt.show()
 
-plt.draw()
 
-plt.savefig(setting + '/scatter/' + spotnname + 'scatter-N' + N + '_Q' + Q + '-S' + S + '.png')
 
-plt.close()
+#-------------------------------------------------
 
+# tips =t1 # sns.load_dataset(data)
+# 
+# sns.stripplot(x="day", y="total_bill", hue="smoker",
+# data=tips, jitter=True,
+# palette="Set2", split=True,linewidth=1,edgecolor='gray')
+# 
+# sns.boxplot(x="day", y="total_bill", hue="smoker",
+# data=tips,palette="Set2",fliersize=0)
+# 
+# plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.);
+
+# dd=pd.melt(df,id_vars=['Group'],value_vars=['Apple','Orange'],var_name='fruits')
+# sns.boxplot(x='Group',y='value',data=dd,hue='fruits')
+ 
+ 
 # ------ boxplot-------------  
+def set_box_color(bp, color):
+    plt.setp(bp['boxes'], color=color)
+    plt.setp(bp['whiskers'], color=color)
+    plt.setp(bp['caps'], color=color)
+    plt.setp(bp['medians'], color=color)
 
+#     
+# collectn_1 = y[0:100]  # np.random.normal(100, 10, 200)
+# collectn_2 = y[100:200]  # np.random.normal(80, 30, 200)
+# collectn_3 = y[200:300]  # np.random.normal(90, 20, 200)
+# collectn_4 = y[300:400]  # np.random.normal(70, 25, 200)
+# collectn_5 = y[400:500]
+# collectn_6 = y[500:600]
+# collectn_7 = y[600:700]
+# collectn_8 = y[700:800]
+# collectn_9 = y[800:900]
+# collectn_10 = y[900:1000]
+# collectn_11 = y[1000:1100]
+# 
+# data_a = qq  # [[1,2,5], [5,7,2,2,5], [7,2,5],[1,2,5], [5,7,2,2,5], [7,2,5],[1,2,5], [5,7,2,2,5], [7,2,5],[1,2,5], [5,7,2,2,5], [7,2,5]]
+# data_b = pp  # [[6, 4, 2], [1, 2, 5, 3, 2], [2, 3, 5, 1], [6, 4, 2], [1, 2, 5, 3, 2], [2, 3, 5, 1]]
+# 
+# ticks = ['0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0']
+# 
+# plt.figure()
+# 
+# bpl = plt.boxplot(data_a, positions=np.array(range(len(data_a))) * 3 - 0.4, sym='',vert=True,notch=True, patch_artist=True,widths=0.6)
+# bpr = plt.boxplot(data_b, positions=np.array(range(len(data_b))) * 3 + 0.4, sym='',vert=True,notch=True, patch_artist=True, widths=0.6)
+# set_box_color(bpl, '#000000')  # colors are from http://colorbrewer2.org/
+# set_box_color(bpr, '#808080')
+# 
+# # draw temporary red and blue lines and use them to create a legend
+# plt.plot([], c='#000000', label='Black')
+# plt.plot([], c='#808080', label='White')
+# plt.xlabel('Proportion of informed', fontsize=30)
+# plt.ylabel('Black / White Spots', fontsize=30)
+# plt.legend()
+# 
+# ax = plt.gca()
+# ax.set_title('N='+ str(swarmSize)+'')
+# ax.tick_params(axis='both', which='major', labelsize=14)
+# 
+# plt.xticks(range(0, len(ticks) * 3, 3), ticks)
+# plt.xlim(-3, len(ticks) * 3)
+# plt.ylim(0, 1)
+# plt.tight_layout()
+# 
+# plt.savefig(setting + '/boxplot/' + spotnname + 'boxplot-N' + N + 'Q' + Q + '-S' + S + 'new.png')
+# plt.close()
+# #-----------------------------------------------------
+ 
 plt.figure(figsize=(14, 7))
 plt.clf()
 # plt.hexbin(x, y, gridsize=nbins, cmap=plt.get_cmap('gray'))
- 
-# # Create data
+
+ticks = ['0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0']
+# Create data
 np.random.seed(10)
 collectn_1 = y[0:100]  # np.random.normal(100, 10, 200)
 collectn_2 = y[100:200]  # np.random.normal(80, 30, 200)
@@ -271,31 +372,140 @@ collectn_8 = y[700:800]
 collectn_9 = y[800:900]
 collectn_10 = y[900:1000]
 collectn_11 = y[1000:1100]
-
+ 
 # # combine these different collections into a list    
 data_to_plot = [collectn_1, collectn_2, collectn_3, collectn_4, collectn_5, collectn_6, collectn_7, collectn_8, collectn_9, collectn_10, collectn_11]
+  
+collectn_1y = y2[0:100]  # np.random.normal(100, 10, 200)
+collectn_2y = y2[100:200]  # np.random.normal(80, 30, 200)
+collectn_3y = y2[200:300]  # np.random.normal(90, 20, 200)
+collectn_4y = y2[300:400]  # np.random.normal(70, 25, 200)
+collectn_5y = y2[400:500]
+collectn_6y = y2[500:600]
+collectn_7y = y2[600:700]
+collectn_8y = y2[700:800]
+collectn_9y = y2[800:900]
+collectn_10y = y2[900:1000]
+collectn_11y = y2[1000:1100]
  
-plt.boxplot(data_to_plot)
- 
-# plt.plot(y, x, 'ko')
+# # combine these different collections into a list    
+data_to_ploty = [collectn_1y, collectn_2y, collectn_3y, collectn_4y, collectn_5y, collectn_6y, collectn_7y, collectn_8y, collectn_9y, collectn_10y, collectn_11y]
 
-plt.xlabel('Prop', fontsize=30)
+# plt.boxplot(data_to_plot)
+# plt.boxplot(data_to_ploty)
+bpl = plt.boxplot(data_to_plot, positions=np.array(range(len(data_to_plot))) * 3 - 0.4, sym='',vert=True,notch=True, patch_artist=True,widths=0.6)
+bpr = plt.boxplot(data_to_ploty, positions=np.array(range(len(data_to_ploty))) * 3 + 0.4, sym='',vert=True,notch=True, patch_artist=True, widths=0.6)
+set_box_color(bpl, '#000000')  # colors are from http://colorbrewer2.org/
+set_box_color(bpr, '#808080')
 
-plt.ylabel('Spot', fontsize=30)
+# draw temporary red and blue lines and use them to create a legend
+plt.plot([], c='#000000', label='Black')
+plt.plot([], c='#808080', label='White')
+plt.xlabel('Proportion of informed', fontsize=30)
+plt.ylabel('Black / White Spots', fontsize=30)
+plt.legend()
+plt.legend(loc='upper left')
 
 ax = plt.gca()
+ax.set_title('N='+ str(swarmSize)+'')
+ax.tick_params(axis='both', which='major', labelsize=14)
 
-ax.tick_params(axis='both', which='major', labelsize=24)
+plt.xticks(range(0, len(ticks) * 3, 3), ticks)
+plt.xlim(-3, len(ticks) * 3)
+plt.ylim(0, 1)
+plt.tight_layout()
+# plt.plot(y, x, 'ko')
+# plt.xlabel('Prop', fontsize=30)
+# plt.ylabel('Spot', fontsize=30)
+ax = plt.gca()
+ 
+ax.tick_params(axis='both', which='major', labelsize=14)
 ax.set_xticklabels(['0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0'])
 # plt.show()
-
+ 
 plt.draw()
-
-plt.savefig(setting + '/boxplot/' + spotnname + 'boxplot-N' + N + 'Q' + Q + '-S' + S + '.png')
-
+ 
+plt.savefig(setting + '/boxplot/boxplot-N' + N + 'Q' + Q + '-S' + S + '.png')
+# plt.savefig(setting + '/boxplot/' + spotnname + 'boxplot-N' + N + 'Q' + Q + '-S' + S + '.png')
+ 
 plt.close()
-  
-# -----------------------------------    
+    
+# -----------------------------------   
+
+
+# # function for setting the colors of the box plots pairs
+# def setBoxColors(bp):
+#     setp(bp['boxes'][0], color='blue')
+#     setp(bp['caps'][0], color='blue')
+#     setp(bp['caps'][1], color='blue')
+#     setp(bp['whiskers'][0], color='blue')
+#     setp(bp['whiskers'][1], color='blue')
+#     setp(bp['fliers'][0], color='blue')
+#     setp(bp['fliers'][1], color='blue')
+#     setp(bp['medians'][0], color='blue')
+#  
+#     setp(bp['boxes'][1], color='red')
+#     setp(bp['caps'][2], color='red')
+#     setp(bp['caps'][3], color='red')
+#     setp(bp['whiskers'][2], color='red')
+#     setp(bp['whiskers'][3], color='red')
+#     setp(bp['fliers'][2], color='red')
+#     setp(bp['fliers'][3], color='red')
+#     setp(bp['medians'][1], color='red')
+#  
+# # Some fake data to plot
+# A= [[1, 2, 5,],  [7, 2]]
+# B = [[5, 7, 2, 2, 5], [7, 2, 5]]
+# C = [[3,2,5,7], [6, 7, 3]]
+#  
+# fig = figure()
+# ax = axes()
+# hold(True)
+#  
+# # first boxplot pair
+# bp = boxplot(A, positions = [1, 2], widths = 0.6)
+# setBoxColors(bp)
+#  
+# # second boxplot pair
+# bp = boxplot(B, positions = [4, 5], widths = 0.6)
+# setBoxColors(bp)
+#  
+# # thrid boxplot pair
+# bp = boxplot(C, positions = [7, 8], widths = 0.6)
+# setBoxColors(bp)
+#  
+# # set axes limits and labels
+# xlim(0,9)
+# ylim(0,9)
+# ax.set_xticklabels(['A', 'B', 'C'])
+# ax.set_xticks([1.5, 4.5, 7.5])
+#  
+# # draw temporary red and blue lines and use them to create a legend
+# hB, = plot([1,1],'b-')
+# hR, = plot([1,1],'r-')
+# legend((hB, hR),('Apples', 'Oranges'))
+# hB.set_visible(False)
+# hR.set_visible(False)
+#  
+# savefig(setting + '/boxplot/' + spotnname + 'boxplot-N' + N + 'Q' + Q + '-S' + S + '234.png')
+# show()
+
+ 
+plt.xlabel('Prop', fontsize=30)
+ 
+plt.ylabel('Spot', fontsize=30)
+ 
+ax = plt.gca()
+ 
+ax.tick_params(axis='both', which='major', labelsize=24)
+ 
+# plt.show()
+ 
+plt.draw()
+ 
+plt.savefig(setting + '/scatter/' + spotnname + 'scatter-N' + N + '_Q' + Q + '-S' + S + '.png')
+ 
+plt.close()
 
 plt.figure(figsize=(14, 7))
 
@@ -327,8 +537,8 @@ plt.clf()
 
 # plt.set_title('Hexbin')
 
-#plt.hist2d(x, y, bins=nbins, cmap=plt.get_cmap('gray'))
-plt.hist2d(x, y, bins=nbins, cmap=plt.cm.colors)
+plt.hist2d(x, y, bins=nbins, cmap=plt.get_cmap('gray'))
+# plt.hist2d(x, y, bins=nbins, cmap=plt.cm.colors)
 # plt.colorbar()
 
 plt.xlabel('Prop')
