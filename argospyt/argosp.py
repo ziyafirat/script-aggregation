@@ -1,7 +1,7 @@
 
 
 # from argospyt.argosDensity import *
-import os
+import os.path
 import xml.etree.cElementTree as ET
 # import subprocess
 import random
@@ -28,16 +28,16 @@ path = argosdir + '/experiments'
 resultDir = argosdir + '/build'
 # resultDir = '/home/Ziya/DATA/' 
 
-proportions = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
+proportions =[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 # proportions = [0.2,0.3];
 # proportions = [0.4,0.5];
 # proportions = [0.6,0.7];
 # proportions = [0.8,0.9];
 # proportions = [1];
 
-clocklen = '3000'  # 2500 * 10 =25000
+clocklen = '5000'  # 2500 * 10 =25000
 
-changesize = 5
+changesize = 2.5
 
 radiusSpot = round((0.9 * changesize), 1)
 blackSpotSize = round((1.3 * changesize), 1)
@@ -68,7 +68,7 @@ for prop in proportions:
         print ("start progress:" , x)
         randseed = random.randint(1, 99999)
         print ("random:" + str(randseed))
-          
+        
         rootframe = et.find('framework')
         rootex = rootframe.find('experiment')
         rootex.set('random_seed', str(randseed))
@@ -77,47 +77,53 @@ for prop in proportions:
         print ("prop:" + str(prop))
         print ("inform:", str(inform))
         resultFolder = 'FirstRuns_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
-        resultFile = resultFolder + '/output_run_' + str(x) + '.txt' 
+        fileName = 'output_run_' + str(x) + '.txt'
+        resultFile = resultFolder + '/' + fileName
           
         if not os.path.exists(resultDir + '/' + resultFolder):
             os.makedirs(resultDir + '/' + resultFolder)
-          
-        rootloop = et.find('loop_functions')
-        rootloop.set('output', resultFile)
-        rootloop.set('radiusSpot', str(radiusSpot))
-        rootloop.set('blackSpotSize', str(blackSpotSize))
-        rootloop.set('whiteSpotSize', str(whiteSpotSize))    
-        rootarea = et.find('arena')
-        rootarea.set('size', str(areaSize) + ',' + str(areaSize) + ',1')
-        rootdist = rootarea.find('distribute')
-        rootpos = rootdist.find('position')
-        minpos = '-' + str(positionSize) + ',-' + str(positionSize) + ',-0'
-        rootpos.set('min', minpos)
-        maxpos = str(positionSize) + ',' + str(positionSize) + ',0'
-        rootpos.set('max', maxpos)
-        rootqty = rootdist.find('entity')
-        rootqty.set('quantity', str(swarmSize)) 
-        rootcontroller = et.find('controllers')
-        rootfootbot = rootcontroller.find('footbot_aggregation_controller')
-        rootparam = rootfootbot.find('params')
-        rootparam.set('numInformedRobot', str(inform))  
-#         rootparam.set('goStraight', str(goStraight))  
-#         rootparam.set('walkInsideSpot', str(walkInsideSpot))  
-#         rootparam.set('waitInsideSpot', str(waitInsideSpot))  
-#         rootparam.set('leaveInsideSpot', str(leaveInsideSpot))  
-             
-        xmlFolder = 'aggregation_informedRatio_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
-        xmlargos = 'run_' + str(x) + '.argos'
-        xmlPath = path + '/' + xmlFolder
-        if not os.path.exists(xmlPath):
-            os.makedirs(xmlPath)
-        et.write(xmlPath + '/' + xmlargos)
-        print ("File created  " , str(x))
-        print ("Starting xml..  " , str(x))       
-        os.chdir(argosdir + "/build")
-        os.system("dir")
-        os.system("argos3 -c ../experiments/" + xmlFolder + '/' + xmlargos)
- 
+            
+        if os.path.isfile(resultDir + '/' + resultFile):
+            print('file does exist. file:' + resultFile)
+        else:
+            print('file does NOT exist. file:' + resultFile)
+                      
+            rootloop = et.find('loop_functions')
+            rootloop.set('output', resultFile)
+            rootloop.set('radiusSpot', str(radiusSpot))
+            rootloop.set('blackSpotSize', str(blackSpotSize))
+            rootloop.set('whiteSpotSize', str(whiteSpotSize))    
+            rootarea = et.find('arena')
+            rootarea.set('size', str(areaSize) + ',' + str(areaSize) + ',1')
+            rootdist = rootarea.find('distribute')
+            rootpos = rootdist.find('position')
+            minpos = '-' + str(positionSize) + ',-' + str(positionSize) + ',-0'
+            rootpos.set('min', minpos)
+            maxpos = str(positionSize) + ',' + str(positionSize) + ',0'
+            rootpos.set('max', maxpos)
+            rootqty = rootdist.find('entity')
+            rootqty.set('quantity', str(swarmSize)) 
+            rootcontroller = et.find('controllers')
+            rootfootbot = rootcontroller.find('footbot_aggregation_controller')
+            rootparam = rootfootbot.find('params')
+            rootparam.set('numInformedRobot', str(inform))  
+    #         rootparam.set('goStraight', str(goStraight))  
+    #         rootparam.set('walkInsideSpot', str(walkInsideSpot))  
+    #         rootparam.set('waitInsideSpot', str(waitInsideSpot))  
+    #         rootparam.set('leaveInsideSpot', str(leaveInsideSpot))  
+                 
+            xmlFolder = 'aggregation_informedRatio_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
+            xmlargos = 'run_' + str(x) + '.argos'
+            xmlPath = path + '/' + xmlFolder
+            if not os.path.exists(xmlPath):
+                os.makedirs(xmlPath)
+            et.write(xmlPath + '/' + xmlargos)
+            print ("File created  " , str(x))
+            print ("Starting xml..  " , str(x))       
+            os.chdir(argosdir + "/build")
+            os.system("dir")
+            os.system("argos3 -c ../experiments/" + xmlFolder + '/' + xmlargos)
+     
 # for prop in proportions:    
 #     t1 = []        
 #     t2 = [] 

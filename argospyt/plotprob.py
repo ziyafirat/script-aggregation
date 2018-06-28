@@ -27,7 +27,7 @@ spotnname2 = 'white_100'
 user = 'osboxes'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
 path = argosdir + '/experiments'
-resultDir = '/home/' + user + '/Ziya/DATAV4'  # argosdir + '/build'
+resultDir = '/home/' + user + '/Ziya/DATAV5'  # argosdir + '/build'
 
 proportions = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 # proportions = [0.2,0.3];
@@ -36,7 +36,7 @@ proportions = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 # proportions = [0.8,0.9];
 # proportions = [1];
 
-clocklen = '2500'  # 2500 * 10 =25000
+clocklen = '3000'  # 2500 * 10 =25000
 calcClockLen = int(clocklen) / 100  # for plot calc
 # 
 # radiusSpot = '0.8'
@@ -47,11 +47,11 @@ calcClockLen = int(clocklen) / 100  # for plot calc
 # rangeStart = 0
 # rangeEnd = 100
 
-changesize = 1
+changesize = 5
 
-radiusSpot = round((0.8 * changesize), 1)
-blackSpotSize = round((1.2 * changesize), 1)
-whiteSpotSize = round((1.2 * changesize), 1)
+radiusSpot = round((0.9 * changesize), 1)
+blackSpotSize = round((1.3 * changesize), 1)
+whiteSpotSize = round((1.3 * changesize), 1)
 swarmSize = round((20 * changesize), 1)
 areaSize = round((6 * changesize), 1)
 positionSize = round((2 * changesize), 1)
@@ -156,14 +156,14 @@ for prop in proportions:
 #         
 
 #       black 
-        yy = y[230:250]
+        yy = y[280:300]
         yy3 = yy.sum() / 20
         
         t1 = np.hstack((t1, str(prop)))
         t2 = np.hstack((t2, yy3))
         
 #       White
-        zz = z[230:250]
+        zz = z[280:300]
         zz3 = zz.sum() / 20
          
         t3 = np.hstack((t3, str(prop)))
@@ -393,8 +393,8 @@ data_to_ploty = [collectn_1y, collectn_2y, collectn_3y, collectn_4y, collectn_5y
 
 # plt.boxplot(data_to_plot)
 # plt.boxplot(data_to_ploty)
-bpl = plt.boxplot(data_to_plot, positions=np.array(range(len(data_to_plot))) * 3 - 0.4, sym='',vert=True,notch=True, patch_artist=True,widths=0.6)
-bpr = plt.boxplot(data_to_ploty, positions=np.array(range(len(data_to_ploty))) * 3 + 0.4, sym='',vert=True,notch=True, patch_artist=True, widths=0.6)
+bpl = plt.boxplot(data_to_plot, positions=np.array(range(len(data_to_plot))) * 3 - 0.4, sym='',vert=True,notch=True, patch_artist=True,widths=0.7)
+bpr = plt.boxplot(data_to_ploty, positions=np.array(range(len(data_to_ploty))) * 3 + 0.4, sym='',vert=True,notch=True, patch_artist=True, widths=0.7)
 set_box_color(bpl, '#000000')  # colors are from http://colorbrewer2.org/
 set_box_color(bpr, '#808080')
 
