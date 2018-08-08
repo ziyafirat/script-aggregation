@@ -5,6 +5,7 @@ import os.path
 import xml.etree.cElementTree as ET
 # import subprocess
 import random
+from debian.changelog import change
 # import numpy as np
 # import matplotlib.pyplot as plt
 # from scipy.stats import kde
@@ -18,7 +19,7 @@ print('***************** hello **********************')
 
 os.system("echo 'hello world'")
 os.system("echo 'argos start--------'")
-
+ 
 user = 'ubuntu'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'  
 # user = 'osboxes'
@@ -35,18 +36,37 @@ proportions =[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 # proportions = [0.8,0.9];
 # proportions = [1];
 
-clocklen = '5000'  # 2500 * 10 =25000
+clocklen = '10000'  # 2500 * 10 =25000
 
-changesize = 2.5
+#changesize = 1
+changesize = 20
 
-radiusSpot = round((0.9 * changesize), 1)
-blackSpotSize = round((1.3 * changesize), 1)
-whiteSpotSize = round((1.3 * changesize), 1)
-swarmSize = round((20 * changesize), 1)
-areaSize = round((6 * changesize), 1)
-positionSize = round((2 * changesize), 1)
+if changesize==20: 
+    radiusSpot = 0.9 # round((1.0 * changesize), 1) # spot size
+    blackSpotSize = 1.5  #round((1.5 * changesize), 1) #spots distance
+    whiteSpotSize = 1.5  #round((1.5 * changesize), 1) #spots distance    
+    areaSize = 4.17*2  #round((8 * changesize), 1)  # area size
+    positionSize = 2  #round((2 * changesize), 1)
+    
+if changesize==50: 
+    radiusSpot = 1.4 # round((1.0 * changesize), 1) # spot size
+    blackSpotSize = 2.3  #round((1.5 * changesize), 1) #spots distance
+    whiteSpotSize = 2.3  #round((1.5 * changesize), 1) #spots distance
+    areaSize = 6.47*2  #round((8 * changesize), 1)  # area size
+    positionSize = 4.3   #round((2 * changesize), 1)
+
+if changesize==100: 
+    radiusSpot = 2.0 # round((1.0 * changesize), 1) # spot size
+    blackSpotSize = 3.5  #round((1.5 * changesize), 1) #spots distance
+    whiteSpotSize = 3.5  #round((1.5 * changesize), 1) #spots distance
+    areaSize = 9.16*2  #round((8 * changesize), 1)  # area size
+    positionSize = 7   #round((2 * changesize), 1)
+
+
 rangeStart = 0
 rangeEnd = 100
+swarmSize = changesize  #round((20 * changesize), 1)
+noiseLevel=0.05
 
 # goStraight=round((80 * changesize),0)
 # walkInsideSpot=round((20 * changesize),0)
@@ -106,7 +126,11 @@ for prop in proportions:
             rootcontroller = et.find('controllers')
             rootfootbot = rootcontroller.find('footbot_aggregation_controller')
             rootparam = rootfootbot.find('params')
-            rootparam.set('numInformedRobot', str(inform))  
+            rootparam.set('numInformedRobot', str(inform)) 
+            rootgroundS = rootfootbot.find('sensors')
+            rootground = rootgroundS.find('footbot_motor_ground')
+            rootground.set('noise_level', str(noiseLevel)) 
+             
     #         rootparam.set('goStraight', str(goStraight))  
     #         rootparam.set('walkInsideSpot', str(walkInsideSpot))  
     #         rootparam.set('waitInsideSpot', str(waitInsideSpot))  
