@@ -66,7 +66,7 @@ if changesize==100:
 rangeStart = 0
 rangeEnd = 100
 swarmSize = changesize  #round((20 * changesize), 1)
-noiseLevel=0.05
+noiseLevel=0
 
 # goStraight=round((80 * changesize),0)
 # walkInsideSpot=round((20 * changesize),0)
