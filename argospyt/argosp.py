@@ -20,10 +20,10 @@ print('***************** hello **********************')
 os.system("echo 'hello world'")
 os.system("echo 'argos start--------'")
  
-user = 'ubuntu'
-argosdir = '/home/' + user + '/Ziya/argos3-aggregation'  
-# user = 'osboxes'
-# argosdir = '/home/' + user + '/Documents/argos3-aggregation'
+# user = 'ubuntu'
+# argosdir = '/home/' + user + '/Ziya/argos3-aggregation'  
+user = 'osboxes'
+argosdir = '/home/' + user + '/Documents/argos3-aggregation'
   
 path = argosdir + '/experiments'
 resultDir = argosdir + '/build'
@@ -39,7 +39,7 @@ proportions =[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 clocklen = '10000'  # 2500 * 10 =25000
 
 #changesize = 1
-changesize = 20
+changesize = 50
 
 if changesize==20: 
     radiusSpot = 0.9 # round((1.0 * changesize), 1) # spot size
@@ -60,7 +60,7 @@ if changesize==100:
     blackSpotSize = 3.5  #round((1.5 * changesize), 1) #spots distance
     whiteSpotSize = 3.5  #round((1.5 * changesize), 1) #spots distance
     areaSize = 9.16*2  #round((8 * changesize), 1)  # area size
-    positionSize = 7   #round((2 * changesize), 1)
+    positionSize = 6.5   #round((2 * changesize), 1)
 
 
 rangeStart = 0

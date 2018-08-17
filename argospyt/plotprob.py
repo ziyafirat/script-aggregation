@@ -28,7 +28,7 @@ spotnname2 = 'white_100'
 user = 'osboxes'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
 path = argosdir + '/experiments'
-resultDir = '/home/' + user + '/Ziya/DATAV10'  # argosdir + '/build'
+resultDir = '/home/' + user + '/Ziya/DATAV11'  # argosdir + '/build'
 
 proportions = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 # proportions = [0.2,0.3];
@@ -48,16 +48,45 @@ calcClockLen = int(clocklen) / 100  # for plot calc
 # rangeStart = 0
 # rangeEnd = 100
 
-changesize = 1
+# changesize = 1
+# 
+# radiusSpot = round((0.9 * changesize), 1)
+# blackSpotSize = round((1.3 * changesize), 1)
+# whiteSpotSize = round((1.3 * changesize), 1)
+# swarmSize = round((20 * changesize), 1)
+# areaSize = round((6 * changesize), 1)
+# positionSize = round((2 * changesize), 1)
+# rangeStart = 0
+# rangeEnd = 200
 
-radiusSpot = round((0.9 * changesize), 1)
-blackSpotSize = round((1.3 * changesize), 1)
-whiteSpotSize = round((1.3 * changesize), 1)
-swarmSize = round((20 * changesize), 1)
-areaSize = round((6 * changesize), 1)
-positionSize = round((2 * changesize), 1)
+changesize = 20
+
+if changesize==20: 
+    radiusSpot = 0.9 # round((1.0 * changesize), 1) # spot size
+    blackSpotSize = 1.5  #round((1.5 * changesize), 1) #spots distance
+    whiteSpotSize = 1.5  #round((1.5 * changesize), 1) #spots distance    
+    areaSize = 4.17*2  #round((8 * changesize), 1)  # area size
+    positionSize = 2  #round((2 * changesize), 1)
+    
+if changesize==50: 
+    radiusSpot = 1.4 # round((1.0 * changesize), 1) # spot size
+    blackSpotSize = 2.3  #round((1.5 * changesize), 1) #spots distance
+    whiteSpotSize = 2.3  #round((1.5 * changesize), 1) #spots distance
+    areaSize = 6.47*2  #round((8 * changesize), 1)  # area size
+    positionSize = 4.3   #round((2 * changesize), 1)
+
+if changesize==100: 
+    radiusSpot = 2.0 # round((1.0 * changesize), 1) # spot size
+    blackSpotSize = 3.5  #round((1.5 * changesize), 1) #spots distance
+    whiteSpotSize = 3.5  #round((1.5 * changesize), 1) #spots distance
+    areaSize = 9.16*2  #round((8 * changesize), 1)  # area size
+    positionSize = 6.5   #round((2 * changesize), 1)
+
+
 rangeStart = 0
-rangeEnd = 200
+rangeEnd = 100
+swarmSize = changesize  #round((20 * changesize), 1)
+noiseLevel=0
 
 
 
@@ -479,29 +508,29 @@ ticks = ['0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '
 
 #---------------------
 
-# collectn_1 = y[0:100]  # np.random.normal(100, 10, 200)
-# collectn_2 = y[100:200]  # np.random.normal(80, 30, 200)
-# collectn_3 = y[200:300]  # np.random.normal(90, 20, 200)
-# collectn_4 = y[300:400]  # np.random.normal(70, 25, 200)
-# collectn_5 = y[400:500]
-# collectn_6 = y[500:600]
-# collectn_7 = y[600:700]
-# collectn_8 = y[700:800]
-# collectn_9 = y[800:900]
-# collectn_10= y[900:1000]
-# collectn_11 = y[1000:1100]
+collectn_1 = y[0:100]  # np.random.normal(100, 10, 200)
+collectn_2 = y[100:200]  # np.random.normal(80, 30, 200)
+collectn_3 = y[200:300]  # np.random.normal(90, 20, 200)
+collectn_4 = y[300:400]  # np.random.normal(70, 25, 200)
+collectn_5 = y[400:500]
+collectn_6 = y[500:600]
+collectn_7 = y[600:700]
+collectn_8 = y[700:800]
+collectn_9 = y[800:900]
+collectn_10= y[900:1000]
+collectn_11 = y[1000:1100]
 
-collectn_1 = y[0:200]  # np.random.normal(100, 10, 200)
-collectn_2 = y[200:400]  # np.random.normal(80, 30, 200)
-collectn_3 = y[400:600]  # np.random.normal(90, 20, 200)
-collectn_4 = y[600:800]  # np.random.normal(70, 25, 200)
-collectn_5 = y[800:1000]
-collectn_6 = y[1000:1200]
-collectn_7 = y[1200:1400]
-collectn_8 = y[1400:1600]
-collectn_9 = y[1800:2000]
-collectn_10 = y[2000:2200]
-collectn_11 = y[2200:2400]
+# collectn_1 = y[0:200]  # np.random.normal(100, 10, 200)
+# collectn_2 = y[200:400]  # np.random.normal(80, 30, 200)
+# collectn_3 = y[400:600]  # np.random.normal(90, 20, 200)
+# collectn_4 = y[600:800]  # np.random.normal(70, 25, 200)
+# collectn_5 = y[800:1000]
+# collectn_6 = y[1000:1200]
+# collectn_7 = y[1200:1400]
+# collectn_8 = y[1400:1600]
+# collectn_9 = y[1800:2000]
+# collectn_10 = y[2000:2200]
+# collectn_11 = y[2200:2400]
 
 # collectn_1 = y[0:50]  # np.random.normal(100, 10, 200)
 # collectn_2 = y[50:100]  # np.random.normal(80, 30, 200)
@@ -518,29 +547,29 @@ collectn_11 = y[2200:2400]
 # # combine these different collections into a list    
 data_to_plot = [collectn_1, collectn_2, collectn_3, collectn_4, collectn_5, collectn_6, collectn_7, collectn_8, collectn_9, collectn_10, collectn_11]
   
-# collectn_1y = y2[0:100]  # np.random.normal(100, 10, 200)
-# collectn_2y = y2[100:200]  # np.random.normal(80, 30, 200)
-# collectn_3y = y2[200:300]  # np.random.normal(90, 20, 200)
-# collectn_4y = y2[300:400]  # np.random.normal(70, 25, 200)
-# collectn_5y = y2[400:500]
-# collectn_6y = y2[500:600]
-# collectn_7y = y2[600:700]
-# collectn_8y = y2[700:800]
-# collectn_9y = y2[800:900]
-# collectn_10y = y2[900:1000]
-# collectn_11y = y2[1000:1100]
+collectn_1y = y2[0:100]  # np.random.normal(100, 10, 200)
+collectn_2y = y2[100:200]  # np.random.normal(80, 30, 200)
+collectn_3y = y2[200:300]  # np.random.normal(90, 20, 200)
+collectn_4y = y2[300:400]  # np.random.normal(70, 25, 200)
+collectn_5y = y2[400:500]
+collectn_6y = y2[500:600]
+collectn_7y = y2[600:700]
+collectn_8y = y2[700:800]
+collectn_9y = y2[800:900]
+collectn_10y = y2[900:1000]
+collectn_11y = y2[1000:1100]
  
-collectn_1y = y2[0:200]  # np.random.normal(100, 10, 200)
-collectn_2y = y2[200:400]  # np.random.normal(80, 30, 200)
-collectn_3y = y2[400:600]  # np.random.normal(90, 20, 200)
-collectn_4y = y2[600:800]  # np.random.normal(70, 25, 200)
-collectn_5y = y2[800:1000]
-collectn_6y = y2[1000:1200]
-collectn_7y = y2[1200:1400]
-collectn_8y = y2[1400:1600]
-collectn_9y = y2[1800:2000]
-collectn_10y = y2[2000:2200]
-collectn_11y = y2[2200:2400]
+# collectn_1y = y2[0:200]  # np.random.normal(100, 10, 200)
+# collectn_2y = y2[200:400]  # np.random.normal(80, 30, 200)
+# collectn_3y = y2[400:600]  # np.random.normal(90, 20, 200)
+# collectn_4y = y2[600:800]  # np.random.normal(70, 25, 200)
+# collectn_5y = y2[800:1000]
+# collectn_6y = y2[1000:1200]
+# collectn_7y = y2[1200:1400]
+# collectn_8y = y2[1400:1600]
+# collectn_9y = y2[1800:2000]
+# collectn_10y = y2[2000:2200]
+# collectn_11y = y2[2200:2400]
 
 # collectn_1y = y2[0:50]  # np.random.normal(100, 10, 200)
 # collectn_2y = y2[50:100]  # np.random.normal(80, 30, 200)
