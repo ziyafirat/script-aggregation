@@ -28,9 +28,9 @@ spotnname2 = 'white_100'
 user = 'osboxes'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
 path = argosdir + '/experiments'
-resultDir = '/home/' + user + '/Ziya/DATAV11'  # argosdir + '/build'
+resultDir = '/home/' + user + '/Ziya/DATAV14'  # argosdir + '/build'
 
-proportions = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
+proportions =[0] #, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 # proportions = [0.2,0.3];
 # proportions = [0.4,0.5];
 # proportions = [0.6,0.7];
@@ -48,8 +48,8 @@ calcClockLen = int(clocklen) / 100  # for plot calc
 # rangeStart = 0
 # rangeEnd = 100
 
-# changesize = 1
-# 
+# changesize = 5
+# # 
 # radiusSpot = round((0.9 * changesize), 1)
 # blackSpotSize = round((1.3 * changesize), 1)
 # whiteSpotSize = round((1.3 * changesize), 1)
@@ -58,33 +58,34 @@ calcClockLen = int(clocklen) / 100  # for plot calc
 # positionSize = round((2 * changesize), 1)
 # rangeStart = 0
 # rangeEnd = 200
+# 
 
 changesize = 20
-
+ 
 if changesize==20: 
     radiusSpot = 0.9 # round((1.0 * changesize), 1) # spot size
     blackSpotSize = 1.5  #round((1.5 * changesize), 1) #spots distance
     whiteSpotSize = 1.5  #round((1.5 * changesize), 1) #spots distance    
     areaSize = 4.17*2  #round((8 * changesize), 1)  # area size
     positionSize = 2  #round((2 * changesize), 1)
-    
+     
 if changesize==50: 
     radiusSpot = 1.4 # round((1.0 * changesize), 1) # spot size
     blackSpotSize = 2.3  #round((1.5 * changesize), 1) #spots distance
     whiteSpotSize = 2.3  #round((1.5 * changesize), 1) #spots distance
     areaSize = 6.47*2  #round((8 * changesize), 1)  # area size
     positionSize = 4.3   #round((2 * changesize), 1)
-
+ 
 if changesize==100: 
     radiusSpot = 2.0 # round((1.0 * changesize), 1) # spot size
     blackSpotSize = 3.5  #round((1.5 * changesize), 1) #spots distance
     whiteSpotSize = 3.5  #round((1.5 * changesize), 1) #spots distance
     areaSize = 9.16*2  #round((8 * changesize), 1)  # area size
-    positionSize = 6.5   #round((2 * changesize), 1)
+    positionSize = 6.2   #round((2 * changesize), 1)
 
 
 rangeStart = 0
-rangeEnd = 100
+rangeEnd = 82
 swarmSize = changesize  #round((20 * changesize), 1)
 noiseLevel=0
 
@@ -144,7 +145,20 @@ print ("path:" , path)
 #         os.chdir(argosdir + "/build")
 #         os.system("dir")
 #         os.system("argos3 -c ../experiments/" + xmlFolder + '/' + xmlargos)
-       
+ 
+nn=[];      
+bbww1=[];
+bbww2=[];
+bbww3=[];
+bbww4=[];
+bbww5=[];
+   
+bbb1=[]
+bbb2=[]   
+bbb5=[]
+www1=[]
+www2=[]   
+www5=[] 
 t1 = []        
 t2 = [] 
 tt1 = []
@@ -176,7 +190,10 @@ for prop in proportions:
         filename = resultDir + '/' + resultFile
         data = np.loadtxt(filename);
  
+        #x, y, z,w1,w2,b1,b2 = data.T
         x, y, z = data.T
+        x,b1,b2 = data.T
+        
 #         steps = 20
 #         for j in range(0, int(calcClockLen)):    
 #             starty = j * steps
@@ -190,6 +207,67 @@ for prop in proportions:
 #             t2 = np.hstack((t2, yy))
 
 #         
+
+#       all spots
+        bb1 = b1[999:1000]
+        bbww1= np.hstack((bbww1, bb1))        
+
+        bb2 = b2[999:1000]
+        bbww2 = np.hstack((bbww2, bb2))        
+        
+#         ww1 = w1[999:1000]
+#         bbww3 = np.hstack((bbww3, ww1))        
+#         
+#         ww2 = w2[999:1000]
+#         bbww4 = np.hstack((bbww4, ww2))
+               
+        
+        nn = np.hstack((nn, swarmSize))
+        
+        
+        
+        
+
+# #      only 2 black 
+#         bb = b1[980:1000]
+#         bb1 = bb.sum() / 20
+#         
+#         #t1 = np.hstack((t1, str(prop)))
+#         bbb1= np.hstack((bbb1, bb1))
+#         
+# 
+#         ww = b2[980:1000]
+#         bb2 = ww.sum() / 20
+#          
+#         #t3 = np.hstack((t3, str(prop)))
+#         bbb2 = np.hstack((bbb2, bb2))
+#         
+#         if bb1 > bb2:
+#             bbb5=np.hstack((bbb5, bb1))
+#         else:
+#             bbb5=np.hstack((bbb5, bb2)) 
+#             
+#         
+# #      only 2 white 
+#         bb = w1[980:1000]
+#         bb1 = bb.sum() / 20
+#         
+#         #t1 = np.hstack((t1, str(prop)))
+#         www1= np.hstack((www1, bb1))
+#         
+# 
+#         ww = w2[980:1000]
+#         bb2 = ww.sum() / 20
+#          
+#         #t3 = np.hstack((t3, str(prop)))
+#         www2 = np.hstack((www2, bb2))
+#         
+#         if bb1 > bb2:
+#             www5=np.hstack((www5, bb1))
+#         else:
+#             www5=np.hstack((www5, bb2)) 
+            
+            
 
 #       black 
         yy = y[980:1000]
@@ -277,6 +355,79 @@ for prop in proportions:
     if not os.path.exists(fld):
         os.makedirs(fld)
         
+#     ab4 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float)])
+#     ab4['var5'] = t1
+#     ab4['var6'] = bbb1   
+#     ab4['var7'] = bbb2 
+#     ab4['var8'] = bbb5   
+#     pp.append(bbb2)       
+#     probfolder = 'prob'    
+#     resultff1 = resultDir + '/' + probfolder 
+#     if not os.path.exists(resultff1):
+#         os.makedirs(resultff1)
+#     resultff44 = resultff1 + '/densityprob2Black.txt'
+#     outfile = np.savetxt(resultff44, ab4, delimiter="\t", fmt="%s")
+#     print('recorded.', resultff44)
+#     fld = resultDir + '/' + probfolder + '/densitiesprob'
+#     if not os.path.exists(fld):
+#         os.makedirs(fld)
+#         
+#     ab5 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float)])
+#     ab5['var5'] = t1
+#     ab5['var6'] = www1   
+#     ab5['var7'] = www2 
+#     ab5['var8'] = www5   
+#     pp.append(www2)       
+#     probfolder = 'prob'    
+#     resultff1 = resultDir + '/' + probfolder 
+#     if not os.path.exists(resultff1):
+#         os.makedirs(resultff1)
+#     resultff55 = resultff1 + '/densityprob2White.txt'
+#     outfile = np.savetxt(resultff55, ab5, delimiter="\t", fmt="%s")
+#     print('recorded.', resultff55)
+#     fld = resultDir + '/' + probfolder + '/densitiesprob'
+#     if not os.path.exists(fld):
+#         os.makedirs(fld)
+        
+#     ab6 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float), ('var9', float), ('var10', float)])
+#     ab6['var5'] = nn
+#     ab6['var6'] = t1   
+#     ab6['var7'] = bbww1 
+#     ab6['var8'] = bbww2  
+#     ab6['var9'] = bbww3 
+#     ab6['var10'] = bbww4   
+#     pp.append(www2)       
+#     probfolder = 'prob'    
+#     resultff1 = resultDir + '/' + probfolder 
+#     if not os.path.exists(resultff1):
+#         os.makedirs(resultff1)
+#     resultff66 = resultff1 + '/densityprobAllSpots.txt'
+#     outfile = np.savetxt(resultff66, ab6, delimiter="\t", fmt="%s")
+#     print('recorded.', resultff66)
+#     fld = resultDir + '/' + probfolder + '/densitiesprob'
+#     if not os.path.exists(fld):
+#         os.makedirs(fld)
+    lennn=len(bbww1)
+    print('len:'+str(len(bbww1)))
+    ab6 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float)])
+    ab6['var5'] = nn
+    ab6['var6'] = t1   
+    ab6['var7'] = bbww1 
+    ab6['var8'] = bbww2  
+#     ab6['var9'] = bbww3 
+#     ab6['var10'] = bbww4   
+    pp.append(t1)       
+    probfolder = 'prob'    
+    resultff1 = resultDir + '/' + probfolder 
+    if not os.path.exists(resultff1):
+        os.makedirs(resultff1)
+    resultff66 = resultff1 + '/densityprobAllSpots.txt'
+    outfile = np.savetxt(resultff66, ab6, delimiter="\t", fmt="%s")
+    print('recorded.', resultff66)
+    fld = resultDir + '/' + probfolder + '/densitiesprob'
+    if not os.path.exists(fld):
+        os.makedirs(fld)
+        
 N = str(swarmSize).replace(".", "_")
 Q = str(inform).replace(".", "_")
 S = str(radiusSpot).replace(".", "_")
@@ -292,10 +443,20 @@ filename2 = fn22
 fn33 = resultff33
  
 filename3 = fn33
+
+fn44 = resultff33
+ 
+filename4 = fn44
+
+fn55 = resultff33
+ 
+filename5 = fn55
  
 print("file:", fn)
 print("file:", fn22)
 print("file:", fn33)
+print("file:", fn44)
+print("file:", fn55)
  
 data = np.loadtxt(filename);
 
@@ -308,6 +469,14 @@ x2, y2 = data22.T
 data33 = np.loadtxt(filename3);
 
 x3, y3, w3, z3 = data33.T
+
+data44 = np.loadtxt(filename4);
+
+x4, y4, w4, z4 = data44.T
+
+data55 = np.loadtxt(filename5);
+
+x5, y5, w5, z5 = data55.T
 
 nbins = 100
  
@@ -602,7 +771,7 @@ plt.legend()
 plt.legend(loc='upper left')
 
 ax = plt.gca()
-ax.set_title('N=' + str(swarmSize) + '', fontsize=25)
+ax.set_title('N=' + str(swarmSize) + ' ', fontsize=25)
 ax.tick_params(axis='both', which='major', labelsize=18)
 
 plt.xticks(range(0, len(ticks) * 3, 3), ticks)
@@ -658,6 +827,62 @@ ax.tick_params(axis='both', which='major', labelsize=16)
 plt.draw()
  
 plt.savefig(setting + '/boxplot/histogram-N' + N + 'Q' + Q + '-S' + S + '.png')
+
+
+#------------------------------------------
+
+# ----------------------------------- 2 black histogram----------------- 
+
+plt.figure(figsize=(14, 7))
+plt.clf()
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+
+column4 = z4
+num_bins = 10
+plt.hist(column4,num_bins,facecolor='grey')
+
+plt.title('N=' + str(swarmSize), fontsize=23 )
+#plt.title('N=50', fontsize=23 )
+plt.xlabel('max('r'$\phi$$_b$,'r'$\phi$$_w$)', fontsize=19)
+plt.ylabel("frequency", fontsize=19)
+plt.xlim(0,1)
+ax = plt.gca()
+ax.tick_params(axis='both', which='major', labelsize=16)
+
+
+plt.draw()
+ 
+plt.savefig(setting + '/boxplot/2BlackHistogram-N' + N + 'Q' + Q + '-S' + S + '.png')
+
+
+#------------------------------------------
+
+# ----------------------------------- 2 white histogram----------------- 
+
+plt.figure(figsize=(14, 7))
+plt.clf()
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+
+column4 = z5
+num_bins = 10
+plt.hist(column4,num_bins,facecolor='grey')
+
+plt.title('N=' + str(swarmSize), fontsize=23 )
+#plt.title('N=50', fontsize=23 )
+plt.xlabel('max('r'$\phi$$_b$,'r'$\phi$$_w$)', fontsize=19)
+plt.ylabel("frequency", fontsize=19)
+plt.xlim(0,1)
+ax = plt.gca()
+ax.tick_params(axis='both', which='major', labelsize=16)
+
+
+plt.draw()
+ 
+plt.savefig(setting + '/boxplot/2WhiteHistogram-N' + N + 'Q' + Q + '-S' + S + '.png')
 
 
 #------------------------------------------

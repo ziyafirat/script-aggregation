@@ -20,63 +20,48 @@ print('***************** hello **********************')
 os.system("echo 'hello world'")
 os.system("echo 'argos start--------'")
  
-user = 'ubuntu'
-argosdir = '/home/' + user + '/Ziya/argos3-aggregation'  
-# user = 'osboxes'
-# argosdir = '/home/' + user + '/Documents/argos3-aggregation'
+# user = 'ubuntu'
+# argosdir = '/home/' + user + '/Ziya/argos3-aggregation'  
+user = 'osboxes'
+argosdir = '/home/' + user + '/Documents/argos3-aggregation'
   
 path = argosdir + '/experiments'
 resultDir = argosdir + '/build'
 # resultDir = '/home/Ziya/DATA/' 
 
-proportions =[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
-# proportions = [0.2,0.3];
-# proportions = [0.4,0.5];
-# proportions = [0.6,0.7];
-# proportions = [0.8,0.9];
-# proportions = [1];
+proportions =[0] #0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 
 clocklen = '10000'  # 2500 * 10 =25000
-
+totalSpots=3
 #changesize = 1
 changesize = 50
 
 if changesize==20: 
-    radiusSpot = 0.9 # round((1.0 * changesize), 1) # spot size
-    blackSpotSize = 1.5  #round((1.5 * changesize), 1) #spots distance
-    whiteSpotSize = 1.5  #round((1.5 * changesize), 1) #spots distance    
-    areaSize = 4.17*2  #round((8 * changesize), 1)  # area size
-    positionSize = 2  #round((2 * changesize), 1)
+    radiusSpot = 0.9 
+    blackSpotSize = 1.5 
+    whiteSpotSize = 1.5     
+    areaSize = 4.17*2  
+    positionSize = 2  
     
 if changesize==50: 
-    radiusSpot = 1.4 # round((1.0 * changesize), 1) # spot size
-    blackSpotSize = 2.3  #round((1.5 * changesize), 1) #spots distance
-    whiteSpotSize = 2.3  #round((1.5 * changesize), 1) #spots distance
-    areaSize = 6.47*2  #round((8 * changesize), 1)  # area size
-    positionSize = 4.3   #round((2 * changesize), 1)
+    radiusSpot = 1.4 
+    blackSpotSize = 2.3  
+    whiteSpotSize = 2.3  
+    areaSize = 6.47*2  
+    positionSize = 4.3  
 
 if changesize==100: 
-    radiusSpot = 2.0 # round((1.0 * changesize), 1) # spot size
-    blackSpotSize = 3.5  #round((1.5 * changesize), 1) #spots distance
-    whiteSpotSize = 3.5  #round((1.5 * changesize), 1) #spots distance
-    areaSize = 9.16*2  #round((8 * changesize), 1)  # area size
-    positionSize = 6.5   #round((2 * changesize), 1)
+    radiusSpot = 2.0 
+    blackSpotSize = 3.5 
+    whiteSpotSize = 3.5 
+    areaSize = 9.16*2  
+    positionSize = 6.2  
 
 
 rangeStart = 0
 rangeEnd = 100
-swarmSize = changesize  #round((20 * changesize), 1)
+swarmSize = changesize  
 noiseLevel=0
-
-# goStraight=round((80 * changesize),0)
-# walkInsideSpot=round((20 * changesize),0)
-# waitInsideSpot=round((40 * changesize),0)
-# leaveInsideSpot=round((100 * changesize),0)
-
-# rangeStart=50
-# rangeEnd=100
-
-# argospyt.argosDensity.processDensity(proportions,rangeStart,rangeEnd,swarmSize,radiusSpot,resultDir);
 
 print ("path:" , path)
 
@@ -112,7 +97,8 @@ for prop in proportions:
             rootloop.set('output', resultFile)
             rootloop.set('radiusSpot', str(radiusSpot))
             rootloop.set('blackSpotSize', str(blackSpotSize))
-            rootloop.set('whiteSpotSize', str(whiteSpotSize))    
+            rootloop.set('whiteSpotSize', str(whiteSpotSize))  
+            rootloop.set('totalSpots', str(totalSpots))  
             rootarea = et.find('arena')
             rootarea.set('size', str(areaSize) + ',' + str(areaSize) + ',1')
             rootdist = rootarea.find('distribute')
