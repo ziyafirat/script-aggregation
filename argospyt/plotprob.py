@@ -60,7 +60,7 @@ calcClockLen = int(clocklen) / 100  # for plot calc
 # rangeEnd = 200
 # 
 
-changesize = 20
+changesize = 100
  
 if changesize==20: 
     radiusSpot = 0.9 # round((1.0 * changesize), 1) # spot size
@@ -85,7 +85,7 @@ if changesize==100:
 
 
 rangeStart = 0
-rangeEnd = 82
+rangeEnd = 99
 swarmSize = changesize  #round((20 * changesize), 1)
 noiseLevel=0
 
@@ -164,11 +164,24 @@ t2 = []
 tt1 = []
 tt2 = []
 
+t1b = []        
+t2b = [] 
+tt1b = []
+tt2b = []
+
 t3 = []        
 t4 = [] 
 t5 = [] 
 tt3 = []
 tt4 = []
+
+t5b = []
+t5w = []
+
+t3w = []        
+t4w = [] 
+tt3w = []
+tt4w = []
 
 tt5 = []
 
@@ -190,9 +203,11 @@ for prop in proportions:
         filename = resultDir + '/' + resultFile
         data = np.loadtxt(filename);
  
-        #x, y, z,w1,w2,b1,b2 = data.T
-        x, y, z = data.T
-        x,b1,b2 = data.T
+        x, y, z,w1,w2,b1,b2 = data.T
+        # x=prob , y=totalBlack, z=totalWhite, w1=whiteSpot1, w2=whiteSpot2, b1=blackSpot1, b2=blackSpot2
+        
+        #x, y, z = data.T
+        #x,b1,b2 = data.T
         
 #         steps = 20
 #         for j in range(0, int(calcClockLen)):    
@@ -211,103 +226,162 @@ for prop in proportions:
 #       all spots
         bb1 = b1[999:1000]
         bbww1= np.hstack((bbww1, bb1))        
-
+ 
         bb2 = b2[999:1000]
         bbww2 = np.hstack((bbww2, bb2))        
-        
-#         ww1 = w1[999:1000]
-#         bbww3 = np.hstack((bbww3, ww1))        
-#         
-#         ww2 = w2[999:1000]
-#         bbww4 = np.hstack((bbww4, ww2))
+         
+        ww1 = w1[999:1000]
+        bbww3 = np.hstack((bbww3, ww1))        
+         
+        ww2 = w2[999:1000]
+        bbww4 = np.hstack((bbww4, ww2))
                
-        
+        yy3 = y[999:1000]
+         
+        t1 = np.hstack((t1, str(prop)))
+        t2 = np.hstack((t2, yy3))
+         
+        zz3 = z[999:1000]
+          
+        t3 = np.hstack((t3, str(prop)))
+        t4 = np.hstack((t4, zz3))
+
         nn = np.hstack((nn, swarmSize))
         
-        
+
+        if yy3 > zz3:    
+            if bb1 > bb2:
+                t5=np.hstack((t5, bb1))
+            else :
+                t5=np.hstack((t5, bb2))
+        else:
+            if ww1 > ww2:
+                t5=np.hstack((t5, ww1))
+            else:
+                t5=np.hstack((t5, ww2))
         
         
 
 # #      only 2 black 
 #         bb = b1[980:1000]
 #         bb1 = bb.sum() / 20
-#         
+#          
 #         #t1 = np.hstack((t1, str(prop)))
 #         bbb1= np.hstack((bbb1, bb1))
-#         
-# 
+#          
+#  
 #         ww = b2[980:1000]
 #         bb2 = ww.sum() / 20
-#          
+#           
 #         #t3 = np.hstack((t3, str(prop)))
 #         bbb2 = np.hstack((bbb2, bb2))
-#         
+#          
 #         if bb1 > bb2:
 #             bbb5=np.hstack((bbb5, bb1))
 #         else:
 #             bbb5=np.hstack((bbb5, bb2)) 
-#             
-#         
+#              
+#          
 # #      only 2 white 
 #         bb = w1[980:1000]
 #         bb1 = bb.sum() / 20
-#         
+#          
 #         #t1 = np.hstack((t1, str(prop)))
 #         www1= np.hstack((www1, bb1))
-#         
-# 
+#          
+#  
 #         ww = w2[980:1000]
 #         bb2 = ww.sum() / 20
-#          
+#           
 #         #t3 = np.hstack((t3, str(prop)))
 #         www2 = np.hstack((www2, bb2))
-#         
+#          
 #         if bb1 > bb2:
 #             www5=np.hstack((www5, bb1))
 #         else:
 #             www5=np.hstack((www5, bb2)) 
-            
-            
-
-#       black 
-        yy = y[980:1000]
-        yy3 = yy.sum() / 20
-        
-        t1 = np.hstack((t1, str(prop)))
-        t2 = np.hstack((t2, yy3))
-        
-#       White
-        zz = z[980:1000]
-        zz3 = zz.sum() / 20
-         
-        t3 = np.hstack((t3, str(prop)))
-        t4 = np.hstack((t4, zz3))
-        
-        if yy3 > zz3:
-            t5=np.hstack((t5, yy3))
-        else:
-            t5=np.hstack((t5, zz3)) 
-            
-#         print ("t5:" + str(t5))
-    
-#     steps = 20
-#     yy2=0
-#     for k in range(0, int(calcClockLen)):
-#         for l in range(0,100):
-#                 
-#             starty = k * steps
-#             endy = (k + 1) * steps
-#                         
-#             yy1 = y[starty:endy]
-#             # yy1=y[10:20]
-#             yy = yy1.sum() / steps
-#             # yy1=yy1.sum()
-#             t1 = np.hstack((t1, str(prop)))
-#             t2 = np.hstack((t2, yy)) 
+#             
+#         #       black 
+#         yy = b1[980:1000]
+#         yy3 = yy.sum() / 20
+#         
+#         t1 = np.hstack((t1, str(prop)))
+#         t2 = np.hstack((t2, yy3))
+#         
+#         #      2. black 
+#         yyb = b2[980:1000]
+#         yy3b = yyb.sum() / 20
+#         
+#         t1b = np.hstack((t1b, str(prop)))
+#         t2b = np.hstack((t2b, yy3b))
+#         
+#         #       White
+#         zz = w1[980:1000]
+#         zz3 = zz.sum() / 20
+#          
+#         t3 = np.hstack((t3, str(prop)))
+#         t4 = np.hstack((t4, zz3))
+#         
+#         #      2. White
+#         zzw = w2[980:1000]
+#         zz3w = zzw.sum() / 20
+#          
+#         t3w = np.hstack((t3w, str(prop)))
+#         t4w = np.hstack((t4w, zz3w))
+#         
+#         if yy3 > zz3:
+#             if yy3>yy3b:
+#                 t5=np.hstack((t5, yy3))
+#             else :
+#                 t5=np.hstack((t5, yy3b))
+#         else:
+#             if zz3>zz3w:
+#                 t5=np.hstack((t5, zz3))
+#             else:
+#                 t5=np.hstack((t5, zz3w))
+#              
+#             
+# 
+# # #       black 
+# #         yy = y[980:1000]
+# #         yy3 = yy.sum() / 20
+# #         
+# #         t1 = np.hstack((t1, str(prop)))
+# #         t2 = np.hstack((t2, yy3))
+# #         
+# # #       White
+# #         zz = z[980:1000]
+# #         zz3 = zz.sum() / 20
+# #          
+# #         t3 = np.hstack((t3, str(prop)))
+# #         t4 = np.hstack((t4, zz3))
+# #         
+# #         if yy3 > zz3:
+# #             t5=np.hstack((t5, yy3))
+# #         else:
+# #             t5=np.hstack((t5, zz3)) 
+#             
+# #         print ("t5:" + str(t5))
 #     
-#     t22=t2.sum()/2000
-#     tt1 = np.hstack((tt1, str(prop)))
-#     tt2 = np.hstack((tt2, t22))
+# #     steps = 20
+# #     yy2=0
+# #     for k in range(0, int(calcClockLen)):
+# #         for l in range(0,100):
+# #                 
+# #             starty = k * steps
+# #             endy = (k + 1) * steps
+# #                         
+# #             yy1 = y[starty:endy]
+# #             # yy1=y[10:20]
+# #             yy = yy1.sum() / steps
+# #             # yy1=yy1.sum()
+# #             t1 = np.hstack((t1, str(prop)))
+# #             t2 = np.hstack((t2, yy)) 
+# #     
+# #     t22=t2.sum()/2000
+# #     tt1 = np.hstack((tt1, str(prop)))
+# #     tt2 = np.hstack((tt2, t22))
+
     ab = np.zeros(t1.size, dtype=[('var1', float), ('var2', float)])
     ab['var1'] = t1
     ab['var2'] = t2        
@@ -338,22 +412,22 @@ for prop in proportions:
     if not os.path.exists(fld):
         os.makedirs(fld)
             
-    ab3 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float)])
-    ab3['var5'] = t1
-    ab3['var6'] = t2   
-    ab3['var7'] = t4 
-    ab3['var8'] = t5   
-    pp.append(t4)       
-    probfolder = 'prob'    
-    resultff1 = resultDir + '/' + probfolder 
-    if not os.path.exists(resultff1):
-        os.makedirs(resultff1)
-    resultff33 = resultff1 + '/densityprobBlackWhite.txt'
-    outfile = np.savetxt(resultff33, ab3, delimiter="\t", fmt="%s")
-    print('recorded.', resultff33)
-    fld = resultDir + '/' + probfolder + '/densitiesprob'
-    if not os.path.exists(fld):
-        os.makedirs(fld)
+#     ab3 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float)])
+#     ab3['var5'] = t1
+#     ab3['var6'] = t2   
+#     ab3['var7'] = t4 
+#     ab3['var8'] = t5   
+#     pp.append(t4)       
+#     probfolder = 'prob'    
+#     resultff1 = resultDir + '/' + probfolder 
+#     if not os.path.exists(resultff1):
+#         os.makedirs(resultff1)
+#     resultff33 = resultff1 + '/densityprobBlackWhite.txt'
+#     outfile = np.savetxt(resultff33, ab3, delimiter="\t", fmt="%s")
+#     print('recorded.', resultff33)
+#     fld = resultDir + '/' + probfolder + '/densitiesprob'
+#     if not os.path.exists(fld):
+#         os.makedirs(fld)
         
 #     ab4 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float)])
 #     ab4['var5'] = t1
@@ -389,14 +463,38 @@ for prop in proportions:
 #     if not os.path.exists(fld):
 #         os.makedirs(fld)
         
-#     ab6 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float), ('var9', float), ('var10', float)])
+    ab6 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float), ('var9', float), ('var10', float),('var11', float),('var12', float),('var13', float)])
+    ab6['var5'] = t1
+    ab6['var6'] = t4 
+    ab6['var7'] = t2   
+    ab6['var8'] = bbww1 
+    ab6['var9'] = bbww2  
+    ab6['var10'] = bbww3 
+    ab6['var11'] = bbww4 
+    ab6['var12'] = t5  
+    ab6['var13'] = t5   
+    pp.append(t5)       
+    probfolder = 'prob'    
+    resultff1 = resultDir + '/' + probfolder 
+    if not os.path.exists(resultff1):
+        os.makedirs(resultff1)
+    resultffall = resultff1 + '/densityprobAllSpots.txt'
+    outfile = np.savetxt(resultffall, ab6, delimiter="\t", fmt="%s")
+    print('recorded.', resultffall)
+    fld = resultDir + '/' + probfolder + '/densitiesprob'
+    if not os.path.exists(fld):
+        os.makedirs(fld)
+    lennn=len(bbww1)
+    print('len:'+str(len(bbww1)))
+    
+#     ab6 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float)])
 #     ab6['var5'] = nn
 #     ab6['var6'] = t1   
 #     ab6['var7'] = bbww1 
 #     ab6['var8'] = bbww2  
-#     ab6['var9'] = bbww3 
-#     ab6['var10'] = bbww4   
-#     pp.append(www2)       
+# #     ab6['var9'] = bbww3 
+# #     ab6['var10'] = bbww4   
+#     pp.append(t1)       
 #     probfolder = 'prob'    
 #     resultff1 = resultDir + '/' + probfolder 
 #     if not os.path.exists(resultff1):
@@ -407,26 +505,6 @@ for prop in proportions:
 #     fld = resultDir + '/' + probfolder + '/densitiesprob'
 #     if not os.path.exists(fld):
 #         os.makedirs(fld)
-    lennn=len(bbww1)
-    print('len:'+str(len(bbww1)))
-    ab6 = np.zeros(t1.size, dtype=[('var5', float), ('var6', float), ('var7', float), ('var8', float)])
-    ab6['var5'] = nn
-    ab6['var6'] = t1   
-    ab6['var7'] = bbww1 
-    ab6['var8'] = bbww2  
-#     ab6['var9'] = bbww3 
-#     ab6['var10'] = bbww4   
-    pp.append(t1)       
-    probfolder = 'prob'    
-    resultff1 = resultDir + '/' + probfolder 
-    if not os.path.exists(resultff1):
-        os.makedirs(resultff1)
-    resultff66 = resultff1 + '/densityprobAllSpots.txt'
-    outfile = np.savetxt(resultff66, ab6, delimiter="\t", fmt="%s")
-    print('recorded.', resultff66)
-    fld = resultDir + '/' + probfolder + '/densitiesprob'
-    if not os.path.exists(fld):
-        os.makedirs(fld)
         
 N = str(swarmSize).replace(".", "_")
 Q = str(inform).replace(".", "_")
@@ -440,23 +518,29 @@ filename = fn
 
 filename2 = fn22
 
-fn33 = resultff33
- 
-filename3 = fn33
+# fn33 = resultff33
+#  
+# filename3 = fn33
+# 
+# fn44 = resultff33
+#  
+# filename4 = fn44
+# 
+# fn55 = resultff33
+#  
+# filename5 = fn55
 
-fn44 = resultff33
+fnall = resultffall
  
-filename4 = fn44
-
-fn55 = resultff33
- 
-filename5 = fn55
+filenameall = fnall
  
 print("file:", fn)
-print("file:", fn22)
-print("file:", fn33)
-print("file:", fn44)
-print("file:", fn55)
+# print("file:", fn22)
+# print("file:", fn33)
+# print("file:", fn44)
+# print("file:", fn55)
+print("filefilenameall:", filenameall)
+
  
 data = np.loadtxt(filename);
 
@@ -466,17 +550,21 @@ data22 = np.loadtxt(filename2);
 
 x2, y2 = data22.T
 
-data33 = np.loadtxt(filename3);
+# data33 = np.loadtxt(filename3);
+# 
+# x3, y3, w3, z3 = data33.T
+# 
+# data44 = np.loadtxt(filename4);
+# 
+# x4, y4, w4, z4 = data44.T
+# 
+# data55 = np.loadtxt(filename5);
+# 
+# x5, y5, w5, z5 = data55.T
 
-x3, y3, w3, z3 = data33.T
+dataall = np.loadtxt(filenameall);
 
-data44 = np.loadtxt(filename4);
-
-x4, y4, w4, z4 = data44.T
-
-data55 = np.loadtxt(filename5);
-
-x5, y5, w5, z5 = data55.T
+xall, yall, zall,w1all,w2all,b1all,b2all,histallb,histallw = dataall.T
 
 nbins = 100
  
@@ -804,10 +892,11 @@ plt.clf()
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-column4 = z3
+column4 = histallb
 num_bins = 10
 #plt.hist(column4, num_bins,facecolor='grey',normed=1)
-plt.hist(column4,num_bins,facecolor='grey')
+plt.hist(histallb,num_bins,facecolor='grey')
+#plt.hist(histallw,num_bins,facecolor='white')
 
 #plt.hist(column4,20,density=True, facecolor='g', alpha=0.75)
 plt.title('N=' + str(swarmSize), fontsize=23 )
@@ -830,62 +919,62 @@ plt.savefig(setting + '/boxplot/histogram-N' + N + 'Q' + Q + '-S' + S + '.png')
 
 
 #------------------------------------------
-
-# ----------------------------------- 2 black histogram----------------- 
-
-plt.figure(figsize=(14, 7))
-plt.clf()
-
-fig = plt.figure()
-ax = fig.add_subplot(111)
-
-column4 = z4
-num_bins = 10
-plt.hist(column4,num_bins,facecolor='grey')
-
-plt.title('N=' + str(swarmSize), fontsize=23 )
-#plt.title('N=50', fontsize=23 )
-plt.xlabel('max('r'$\phi$$_b$,'r'$\phi$$_w$)', fontsize=19)
-plt.ylabel("frequency", fontsize=19)
-plt.xlim(0,1)
-ax = plt.gca()
-ax.tick_params(axis='both', which='major', labelsize=16)
-
-
-plt.draw()
- 
-plt.savefig(setting + '/boxplot/2BlackHistogram-N' + N + 'Q' + Q + '-S' + S + '.png')
-
-
-#------------------------------------------
-
-# ----------------------------------- 2 white histogram----------------- 
-
-plt.figure(figsize=(14, 7))
-plt.clf()
-
-fig = plt.figure()
-ax = fig.add_subplot(111)
-
-column4 = z5
-num_bins = 10
-plt.hist(column4,num_bins,facecolor='grey')
-
-plt.title('N=' + str(swarmSize), fontsize=23 )
-#plt.title('N=50', fontsize=23 )
-plt.xlabel('max('r'$\phi$$_b$,'r'$\phi$$_w$)', fontsize=19)
-plt.ylabel("frequency", fontsize=19)
-plt.xlim(0,1)
-ax = plt.gca()
-ax.tick_params(axis='both', which='major', labelsize=16)
-
-
-plt.draw()
- 
-plt.savefig(setting + '/boxplot/2WhiteHistogram-N' + N + 'Q' + Q + '-S' + S + '.png')
-
-
-#------------------------------------------
+# 
+# # ----------------------------------- 2 black histogram----------------- 
+# 
+# plt.figure(figsize=(14, 7))
+# plt.clf()
+# 
+# fig = plt.figure()
+# ax = fig.add_subplot(111)
+# 
+# column4 = z4
+# num_bins = 10
+# plt.hist(column4,num_bins,facecolor='grey')
+# 
+# plt.title('N=' + str(swarmSize), fontsize=23 )
+# #plt.title('N=50', fontsize=23 )
+# plt.xlabel('max('r'$\phi$$_b$,'r'$\phi$$_w$)', fontsize=19)
+# plt.ylabel("frequency", fontsize=19)
+# plt.xlim(0,1)
+# ax = plt.gca()
+# ax.tick_params(axis='both', which='major', labelsize=16)
+# 
+# 
+# plt.draw()
+#  
+# plt.savefig(setting + '/boxplot/2BlackHistogram-N' + N + 'Q' + Q + '-S' + S + '.png')
+# 
+# 
+# #------------------------------------------
+# 
+# # ----------------------------------- 2 white histogram----------------- 
+# 
+# plt.figure(figsize=(14, 7))
+# plt.clf()
+# 
+# fig = plt.figure()
+# ax = fig.add_subplot(111)
+# 
+# column4 = z5
+# num_bins = 10
+# plt.hist(column4,num_bins,facecolor='grey')
+# 
+# plt.title('N=' + str(swarmSize), fontsize=23 )
+# #plt.title('N=50', fontsize=23 )
+# plt.xlabel('max('r'$\phi$$_b$,'r'$\phi$$_w$)', fontsize=19)
+# plt.ylabel("frequency", fontsize=19)
+# plt.xlim(0,1)
+# ax = plt.gca()
+# ax.tick_params(axis='both', which='major', labelsize=16)
+# 
+# 
+# plt.draw()
+#  
+# plt.savefig(setting + '/boxplot/2WhiteHistogram-N' + N + 'Q' + Q + '-S' + S + '.png')
+# 
+# 
+# #------------------------------------------
 
 
 
