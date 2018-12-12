@@ -5,7 +5,7 @@ import os.path
 import xml.etree.cElementTree as ET
 # import subprocess
 import random
-from debian.changelog import change
+# from debian.changelog import change
 # import numpy as np
 # import matplotlib.pyplot as plt
 # from scipy.stats import kde
@@ -29,33 +29,220 @@ path = argosdir + '/experiments'
 resultDir = argosdir + '/build'
 # resultDir = '/home/Ziya/DATA/' 
 
-proportions =[0] #0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
+proportions =[0.2] #0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
+
+informedWhite=0.8
+
 
 clocklen = '10000'  # 2500 * 10 =25000
-totalSpots=2
+totalSpots = 2
 #changesize = 1
 changesize = 50
 
+
+## waitInsideSpot="10" countMaxNeighbors="5.0"   SwarmCampo10_8
+## waitInsideSpot="10" countMaxNeighbors="4.0"   SwarmCampo4_10
+## waitInsideSpot="10" countMaxNeighbors="7.0"   SwarmCampo7_10
+## waitInsideSpot="10" countMaxNeighbors="6.0"   SwarmCampo8_8
+
+   
+
+## waitInsideSpot="1" countMaxNeighbors="7.0"   === 37.txt          radiusSpot = 1.093
+## waitInsideSpot="10" countMaxNeighbors="7.0"  === 38.txt
+## waitInsideSpot="1" countMaxNeighbors="6.0"    === 39.txt
+##waitInsideSpot="1" countMaxNeighbors="5.0"    === 40.txt
+
+
+
+#2 spots  S < N/2 
+#     
+# if changesize==20: 
+#     radiusSpot = 0.33 
+#     blackSpotSize = 0.7
+#     whiteSpotSize = 0.7     
+#     areaSize = 1.85*2  
+#     positionSize = 1.2  
+#       
+# if changesize==50: 
+#     radiusSpot = 0.50
+#     blackSpotSize = 1.3  
+#     whiteSpotSize = 1.3  
+#     areaSize = 2.92*2  
+#     positionSize = 2.0  
+#   
+# if changesize==100: 
+#     radiusSpot = 0.69
+#     blackSpotSize = 2.1 
+#     whiteSpotSize = 2.1 
+#     areaSize = 4.13*2  
+#     positionSize = 2.7
+
+  
+#2 spots  N/2 < S < N
+    
+# if changesize==20: 
+#     radiusSpot = 0.44 
+#     blackSpotSize = 0.7
+#     whiteSpotSize = 0.7     
+#     areaSize = 1.85*2  
+#     positionSize = 1.2  
+#      
+# if changesize==50: 
+#     radiusSpot = 0.69
+#     blackSpotSize = 1.3  
+#     whiteSpotSize = 1.3  
+#     areaSize = 2.92*2  
+#     positionSize = 2.0  
+#  
+# if changesize==100: 
+#     radiusSpot = 0.952
+#     blackSpotSize = 2.1 
+#     whiteSpotSize = 2.1 
+#     areaSize = 4.13*2  
+#     positionSize = 2.7
+
+# if changesize==20: 
+#     radiusSpot = 0.9 
+#     blackSpotSize = 1.5 
+#     whiteSpotSize = 1.5     
+#     areaSize = 4.17*2  
+#     positionSize = 2  
+#     
+# if changesize==50: 
+#     radiusSpot = 0.625
+#     blackSpotSize = 2.3  
+#     whiteSpotSize = 2.3  
+#     areaSize = 6.32*2  
+#     positionSize = 4.3  
+# 
+# if changesize==100: 
+#     radiusSpot = 2.0 
+#     blackSpotSize = 3.5 
+#     whiteSpotSize = 3.5 
+#     areaSize = 9.16*2  
+#     positionSize = 6.2 
+    
+    
+##waitInsideSpot="10" countMaxNeighbors="5.0"    --  17.txt
+##waitInsideSpot="10" countMaxNeighbors="6.0"    --  18.txt
+##waitInsideSpot="10" countMaxNeighbors="7.0"    --  19.txt
+##waitInsideSpot="1" countMaxNeighbors="6.0"    --  20.txt
+##waitInsideSpot="1" countMaxNeighbors="5.0"    --  21.txt
+##waitInsideSpot="1" countMaxNeighbors="7.0"    --  22.txt
+##waitInsideSpot="1" countMaxNeighbors="12.0"    --  22.txt
+##waitInsideSpot="1" countMaxNeighbors="18.0"    --  23.txt
+
+##waitInsideSpot="1" countMaxNeighbors="5.0"    --  25.txt
+##waitInsideSpot="1" countMaxNeighbors="4.0"    --  26.txt
+##waitInsideSpot="1" countMaxNeighbors="8.0"    --  27.txt
+##waitInsideSpot="1" countMaxNeighbors="9.0"    --  28.txt
+##waitInsideSpot="1" countMaxNeighbors="15.0"    --  29.txt
+##waitInsideSpot="1" countMaxNeighbors="20.0"    --  30.txt
+##waitInsideSpot="1" countMaxNeighbors="25.0"    --  31.txt
+##waitInsideSpot="1" countMaxNeighbors="30.0"    --  32.txt
+
+##waitInsideSpot="10" countMaxNeighbors="20.0"    --  41.txt
+##waitInsideSpot="10" countMaxNeighbors="15.0"    --  42.txt
+##waitInsideSpot="10" countMaxNeighbors="25.0"    --  43.txt working good
+##waitInsideSpot="10" countMaxNeighbors="10.0"    --  44.txt
+##waitInsideSpot="10" countMaxNeighbors="5.0"    --  45.txt
+##waitInsideSpot="1" countMaxNeighbors="12.0"    --  46.txt
+##waitInsideSpot="1" countMaxNeighbors="18.0"    --  47.txt
+##waitInsideSpot="1" countMaxNeighbors="22.0"    --  48txt
+
+##waitInsideSpot="10" countMaxNeighbors="25.0"    --  0.txt 20 swarm
+##waitInsideSpot="10" countMaxNeighbors="25.0"    --  0.txt 100 swarm
+
+
+    
+# realone 
+    
 if changesize==20: 
     radiusSpot = 0.9 
     blackSpotSize = 1.5 
     whiteSpotSize = 1.5     
     areaSize = 4.17*2  
     positionSize = 2  
-    
+      
 if changesize==50: 
     radiusSpot = 1.4 
     blackSpotSize = 2.3  
     whiteSpotSize = 2.3  
     areaSize = 6.47*2  
     positionSize = 4.3  
-
+  
 if changesize==100: 
     radiusSpot = 2.0 
     blackSpotSize = 3.5 
     whiteSpotSize = 3.5 
     areaSize = 9.16*2  
     positionSize = 6.2  
+
+#campo epuck
+# if changesize==20: 
+#     radiusSpot = 0.334 
+#     blackSpotSize = 0.5 
+#     whiteSpotSize = 0.5     
+#     areaSize = 1.335*2  
+#     positionSize = 0.7  
+#      
+# if changesize==50: 
+#     radiusSpot = 0.476 
+#     blackSpotSize = 2.3  
+#     whiteSpotSize = 2.3  
+#     areaSize = 1.905*2  
+#     positionSize = 4.3  
+#  
+# if changesize==100: 
+#     radiusSpot = 2.0 
+#     blackSpotSize = 3.5 
+#     whiteSpotSize = 3.5 
+#     areaSize = 9.16*2  
+#     positionSize = 6.2  
+
+#1.093011  //20 timestep
+#1.093012  //50 timestep
+#1.093013  //80 timestep
+#1.093014  //100 timestep
+#waitInsideSpot="10" countMaxNeighbors="6"   1 spot ame values SwarmAme7 and SwarmAme6 500.00 timesrun  --   countMaxNeighbors="7" SwarmAme8  --  
+#waitInsideSpot="10" countMaxNeighbors="8"   1 spot campo waitInsideSpot="8"
+
+
+## waitInsideSpot="5" countMaxNeighbors="5.0"    8.txt
+## waitInsideSpot="25" countMaxNeighbors="5.0"    9.txt
+## waitInsideSpot="25" countMaxNeighbors="7.0"    10.txt
+## waitInsideSpot="5" countMaxNeighbors="4.0"    11.txt
+## waitInsideSpot="15" countMaxNeighbors="4.0"    12.txt
+## waitInsideSpot="5" countMaxNeighbors="3.0"    13.txt
+    
+#campo converted foot-bot
+# if changesize==20: 
+#     radiusSpot = 0.767 
+#     blackSpotSize = 1.3 
+#     whiteSpotSize = 1.3     
+#     areaSize = 3.067*2  
+#     positionSize = 1.8  
+#     
+# if changesize==50: 
+#     radiusSpot = 1.4 
+#     blackSpotSize = 2.3  
+#     whiteSpotSize = 2.3  
+#     areaSize = 6.47*2  
+#     positionSize = 4.3 
+#      
+# # if changesize==50: 
+# #     radiusSpot = 1.4
+# #     blackSpotSize = 1.8
+# #     whiteSpotSize = 1.8  
+# #     areaSize = 4.377*2  
+# #     positionSize = 3.1 
+#  
+# if changesize==100: 
+#     radiusSpot = 1.328 
+#     blackSpotSize = 2.6 
+#     whiteSpotSize = 2.6 
+#     areaSize = 5.312*2  
+#     positionSize = 3.7  
 
 
 rangeStart = 0
@@ -79,6 +266,8 @@ for prop in proportions:
         rootex.set('random_seed', str(randseed))
         rootex.set('length', clocklen)
         inform = swarmSize * prop
+        informWhite=inform * informedWhite
+        informBlack=inform - informWhite
         print ("prop:" + str(prop))
         print ("inform:", str(inform))
         resultFolder = 'FirstRuns_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
@@ -113,6 +302,8 @@ for prop in proportions:
             rootfootbot = rootcontroller.find('footbot_aggregation_controller')
             rootparam = rootfootbot.find('params')
             rootparam.set('numInformedRobot', str(inform)) 
+            rootparam.set('numInformedRobotBlack', str(informBlack)) 
+            rootparam.set('numInformedRobotWhite', str(informWhite)) 
             rootgroundS = rootfootbot.find('sensors')
             rootground = rootgroundS.find('footbot_motor_ground')
             rootground.set('noise_level', str(noiseLevel)) 
