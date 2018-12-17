@@ -29,9 +29,9 @@ path = argosdir + '/experiments'
 resultDir = argosdir + '/build'
 # resultDir = '/home/Ziya/DATA/' 
 
-proportions =[0.4] #0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
+proportions =[0.6] #0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 
-informedWhite=0.8
+informWhite=16
 
 
 clocklen = '10000'  # 2500 * 10 =25000
@@ -266,7 +266,7 @@ for prop in proportions:
         rootex.set('random_seed', str(randseed))
         rootex.set('length', clocklen)
         inform = swarmSize * prop
-        informWhite=inform * informedWhite
+        #informWhite=inform * informedWhite
         informBlack=inform - informWhite
         print ("prop:" + str(prop))
         print ("inform:", str(inform))
