@@ -33,7 +33,6 @@ proportions =[0.6] #0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 
 informWhite=16
 
-
 clocklen = '10000'  # 2500 * 10 =25000
 totalSpots = 2
 #changesize = 1
