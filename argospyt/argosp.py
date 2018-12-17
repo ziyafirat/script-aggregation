@@ -22,14 +22,14 @@ os.system("echo 'argos start--------'")
  
 user = 'ubuntu'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'    
-# user = 'osboxes'
-# argosdir = '/home/' + user + '/Documents/argos3-aggregation'
+#user = 'osboxes'
+#argosdir = '/home/' + user + '/Documents/argos3-aggregation'
   
 path = argosdir + '/experiments'
 resultDir = argosdir + '/build'
 # resultDir = '/home/Ziya/DATA/' 
 
-proportions =[0.2] #0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
+proportions =[0.4] #0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 
 informedWhite=0.8
 
@@ -270,7 +270,7 @@ for prop in proportions:
         informBlack=inform - informWhite
         print ("prop:" + str(prop))
         print ("inform:", str(inform))
-        resultFolder = 'FirstRuns_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
+        resultFolder = 'FirstRuns_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform)+ '_SP' + str(informWhite) 
         fileName = 'output_run_' + str(x) + '.txt'
         resultFile = resultFolder + '/' + fileName
           

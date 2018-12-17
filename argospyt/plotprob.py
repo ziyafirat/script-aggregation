@@ -8,7 +8,7 @@ import xml.etree.cElementTree as ET
 import random
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
+#import seaborn as sns
 
 # from matplotlib.colors import lnorm
 from scipy.stats import kde
@@ -31,15 +31,15 @@ spotnname2 = 'white_100'
 user = 'osboxes'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
 path = argosdir + '/experiments'
-resultDir = '/home/' + user + '/Ziya/DATAV15'  # argosdir + '/build'
+resultDir = '/home/' + user + '/Ziya/DATAV24-2-SPOT-NEW/9.0'  # argosdir + '/build'
 
-proportions =[0]#, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
+proportions =[0.2]#, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
 
 clocklen = '10000'  # 2500 * 10 =25000
 calcClockLen = int(clocklen) / 100  # for plot calc
 
 
-changesize = 100
+changesize = 50
 
 
 binhist=7;
@@ -112,7 +112,7 @@ if changesize==100:
 
 
 rangeStart = 0
-rangeEnd = 200
+rangeEnd = 100
 swarmSize = changesize  #round((20 * changesize), 1)
 noiseLevel=0
 
@@ -1321,4 +1321,3 @@ plt.close()
 #plt.close()
 
 print('******************* Finish ************************')
-
