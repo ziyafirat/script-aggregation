@@ -31,13 +31,15 @@ spotnname2 = 'white_100'
 user = 'osboxes'
 argosdir = '/home/' + user + '/Ziya/argos3-aggregation'
 path = argosdir + '/experiments'
-resultDir = '/home/' + user + '/Ziya/DATAV24-2-SPOT-NEW/9.0'  # argosdir + '/build'
+resultDir = '/home/' + user + '/Ziya/DATAV24-2-SPOT-NEW/5.0'  # argosdir + '/build'
 
-proportions =[0.2]#, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
+proportions =[0.4]#, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]  
+
+informWhite=5
+inform=0
 
 clocklen = '10000'  # 2500 * 10 =25000
 calcClockLen = int(clocklen) / 100  # for plot calc
-
 
 changesize = 50
 
@@ -178,7 +180,7 @@ for prop in proportions:
         inform = swarmSize * prop
         print ("prop:" + str(prop))
         print ("inform:", str(inform))
-        resultFolder = 'FirstRuns_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) 
+        resultFolder = 'FirstRuns_A' + str(radiusSpot) + '_N' + str(swarmSize) + '_P' + str(inform) + '_SP' + str(subinform) 
         resultFile = resultFolder + '/output_run_' + str(x) + '.txt'
         print ("Starting density..  ", str(x)) 
         filename = resultDir + '/' + resultFile
@@ -528,90 +530,22 @@ plt.plot(x2, y2, 'ko')
 
 num_bins = 200
 
-#--------------------------2DHist----------------
+#--------------------------2DHist---------------------------------------------------------------
 
-# fig, axes = plt.subplots(nrows=1, ncols=2)
-# 
-# data = np.vstack([
-#     histallb,
-#     histallout
-# ])
-# 
-# gammas = [0.8, 0.5, 0.3]
-# 
-# #axes[0, 0].set_title('Linear normalization')
-# axes[0, 0].hist2d(histallb, histallout, bins=10)
-# axes[0, 0].hist2d(histallout, histallb, bins=10)
-# 
-# 
-# 
-# # for ax, gamma in zip(axes.flat[1:], gammas):
-# #     ax.set_title(r'Power law $(\gamma=%1.1f)$' % gamma)
-# # axes.hist2d(histallb, histallout, bins=10, cmap='Greys')
-# # axes.hist2d(histallout, histallb, bins=10, cmap='Greys')
-# 
-# #axes.hist2d(histallb,histallout, bins=100, norm=mcolors.PowerNorm(0.3))
-# 
-# fig.tight_layout()
-
-# def _dark_colormap(c):
-#     r,g,b = m.colors.colorConverter.to_rgb(c)
-#     cdict = {'red':   ((0.0, 1.0, 1.0),
-#                        (1.0,     0.0,   0.0)),
-#              'green': ((0.0, 1.0, 1.0),
-#                        (1.0,    0.0,   0.0)),
-#              'blue':  ((0.0, 1.0, 1.0),
-#                        (1.0,      0.0,   0.0))
-#             }
-#     return m.colors.LinearSegmentedColormap('_', cdict) 
-# 
-# def grayify_cmap(cmap):
-#     """Return a grayscale version of the colormap"""
-#     cmap = plt.cm.get_cmap(cmap)
-#     colors = cmap(np.arange(cmap.N))
-#     
-#     # convert RGBA to perceived greyscale luminance
-#     # cf. http://alienryderflex.com/hsp.html
-#     RGB_weight = [0.469, 0.187, 0.114]
-#     luminance = np.sqrt(np.dot(colors[:, :3] ** 2, RGB_weight))
-#     colors[:, :3] = luminance[:, np.newaxis]
-#     
-#     return cmap.from_list(cmap.name + "_grayscale", colors, cmap.N)
-# 
-# 
-# cdict = {
-#   'red'  :  ( (0.0, 0.25, .25), (0.02, .59, .59), (1., 1., 1.)),
-#   'green':  ( (0.0, 0.0, 0.0), (0.02, .45, .45), (1., .97, .97)),
-#   'blue' :  ( (0.0, 1.0, 1.0), (0.02, .75, .75), (1., 0.45, 0.45))
-# }
-# 
-# cm = m.colors.LinearSegmentedColormap('my_colormap', cdict, 1024)
-
-
-# colors = ["#ffffff", "#DCDCDC", "#D3D3D3", "#C0C0C0", "#A9A9A9","#808080","#696969","#2F4F4F","#000000"]
-# cmap= m.colors.ListedColormap(colors)
-# cmap.set_under("crimson")
-# cmap.set_over("w")
-# norm= m.colors.Normalize(vmin=0,vmax=40)
-# 
-# fig, ax = plt.subplots()
-# im = ax.hist2d(histallb,histallout,cmap=cmap, norm=norm)
-# 
-# #fig.colorbar(0,200)
 
 plt.figure(figsize=(12, 10))
 plt.clf()
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
-plt.title('N=' + str(swarmSize), fontsize=23 )
+plt.title('N=' + str(swarmSize)+' Inform=' + str(inform)+' White=' + str(informWhite), fontsize=23 )
 
 colors = ["#FFFFFF", "#D3D3D3", "#C0C0C0", "#A9A9A9","#989898","#808080","#696969","#484848","#202020","#121212","#080808","#000000"]
 cmap = m.colors.ListedColormap(colors)
 cmap.set_over('0.25')
 cmap.set_under('0.75')
 
-bounds = [0, 1, 3, 6, 10, 17, 25, 35, 50,100,150, 200]
+bounds = [0, 1, 3, 6, 10, 15, 20, 25, 30,50,60, 100]
 norm = m.colors.BoundaryNorm(bounds, cmap.N)
 # cb2 = m.colorbar.ColorbarBase(ax, cmap=cmap,
 #                                 norm=norm,
@@ -622,7 +556,7 @@ norm = m.colors.BoundaryNorm(bounds, cmap.N)
 #                                 orientation='vertical')
 
 plt.hist2d(zall,yall, bins=5, cmap=cmap, norm=norm)
-plt.colorbar(norm=norm,spacing='proportional',ticks=[0, 25, 50,100,150, 200])
+plt.colorbar(norm=norm,spacing='proportional',ticks=[0, 5, 10,20,50, 100])
 #cb2.colorbar(bounds);
  
 plt.xlabel('max('r'$\phi$$_b$)', fontsize=16)
