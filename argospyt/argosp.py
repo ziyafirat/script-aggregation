@@ -21,7 +21,8 @@ os.system("echo 'hello world'")
 os.system("echo 'argos start--------'")
  
 user = 'zfirat'
-argosdir = '/home/' + user + '/Ziya/argos3-aggregation'    
+argosdir = '/home/student/z/f/' + user + '/Ziya/argos3-aggregation'  
+  
 #user = 'osboxes'
 #argosdir = '/home/' + user + '/Documents/argos3-aggregation'
   
