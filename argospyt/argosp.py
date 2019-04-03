@@ -19,9 +19,11 @@ resultDir = argosdir + '/build'
 
 proportions = [0.8]  # 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] 
 informWhite = 40
-clocklen = '50000'  # 2500 * 10 =25000
+clocklen = '10000'  # 2500 * 10 =25000
 totalSpots = 2
 changesize = 50
+kParam = 15
+bParam = 0.8
 
 # realone     
 if changesize == 20: 
@@ -103,6 +105,8 @@ for prop in proportions:
             rootcontroller = et.find('controllers')
             rootfootbot = rootcontroller.find('footbot_aggregation_controller')
             rootparam = rootfootbot.find('params')
+            rootparam.set('bParam', str(bParam)) 
+            rootparam.set('kParam', str(kParam)) 
             rootparam.set('numInformedRobot', str(inform)) 
             rootparam.set('numInformedRobotBlack', str(informBlack)) 
             rootparam.set('numInformedRobotWhite', str(informWhite)) 
@@ -398,4 +402,3 @@ for prop in proportions:
 #   
  
 print('******************* Finish ************************')
-
